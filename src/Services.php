@@ -1,6 +1,6 @@
 <?php
 
-namespace Webchemistry\Test;
+namespace WebChemistry\Test;
 
 use Nette\Application\IPresenterFactory;
 use WebChemistry\Test\Components;

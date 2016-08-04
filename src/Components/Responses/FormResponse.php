@@ -1,6 +1,6 @@
 <?php
 
-namespace Webchemistry\Test\Components\Responses;
+namespace WebChemistry\Test\Components\Responses;
 
 class FormResponse {
 
