@@ -1,0 +1,8 @@
+{
+	"name": "webchemistry/testing-helpers",
+	"type": "library",
+	"desc": "Testing helpers for nette presenters and components",
+	"autoload": {
+		"classmap": ["src/"]
+	}
+}
