@@ -10,6 +10,7 @@ use WebChemistry\Testing\Components;
  * @property-read Components\Form $form
  * @property-read Components\FileSystem $fileSystem
  * @property-read Components\Presenter $presenter
+ * @property-read Components\Control $control
  */
 class Services {
 
@@ -21,6 +22,9 @@ class Services {
 
 	/** @var Components\FileSystem */
 	private $fileSystem;
+
+	/** @var Components\Control */
+	private $control;
 
 	/**
 	 * @param IPresenterFactory|NULL $presenterFactory
@@ -55,6 +59,17 @@ class Services {
 		}
 
 		return $this->fileSystem;
+	}
+
+	/**
+	 * @return Components\Control
+	 */
+	public function getControl() {
+		if (!$this->control) {
+			$this->control = new Components\Control();
+		}
+
+		return $this->control;
 	}
 
 	public function __get($name) {

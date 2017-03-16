@@ -61,7 +61,7 @@ class Presenter {
 	}
 
 	/**
-	 * @param string $presenter
+	 * @param string|IPresenter $presenter
 	 * @param string $method
 	 * @param array $params
 	 * @param array $post
@@ -70,7 +70,12 @@ class Presenter {
 	 * @return Responses\PresenterResponse
 	 */
 	public function createRequest($presenter, $method = 'GET', array $params = [], array $post = [], array $files = [], array $flags = []) {
-		$class = self::createPresenter($presenter);
+		if (!$presenter instanceof IPresenter) {
+			$class = self::createPresenter($presenter);
+		} else {
+			$class = $presenter;
+			$presenter = 'Foo';
+		}
 		$request = new Request($presenter, $method, $params, $post, $files, $flags);
 
 		return new Responses\PresenterResponse($class->run($request), $class);
