@@ -5,7 +5,8 @@
 	"require-dev": {
 		"codeception/codeception": "~2.2",
 		"nette/application": "~2.4",
-		"nette/forms": "~2.4"
+		"nette/forms": "~2.4",
+		"latte/latte": "~2.4"
 	},
 	"autoload": {
 		"psr-4": {

@@ -34,6 +34,14 @@ class Form {
 	}
 
 	/**
+	 * @param string $name
+	 * @return \Nette\Application\UI\Form
+	 */
+	public function getForm($name) {
+		return $this->forms[$name]();
+	}
+
+	/**
 	 * Sends form
 	 *
 	 * @deprecated

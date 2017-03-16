@@ -2,13 +2,17 @@
 
 namespace WebChemistry\Testing\Components;
 
+use Latte\Engine;
 use Nette\Application\IPresenter;
 use Nette\Application\IPresenterFactory;
 use Nette\Application\PresenterFactory;
 use Nette\Application\Request;
 use Nette\Application\UI;
+use Nette\Bridges\ApplicationLatte\TemplateFactory;
+use Nette\Http\IRequest;
 use Nette\Http\Response;
 use Nette\Http\UrlScript;
+use WebChemistry\Testing\Components\Helpers\LatteFactory;
 use WebChemistry\Testing\Components\Responses;
 
 class Presenter {
@@ -41,7 +45,7 @@ class Presenter {
 				$presenter->autoCanonicalize = FALSE;
 
 				$request = new \Nette\Http\Request(new UrlScript('http://localhost/'));
-				$presenter->injectPrimary(NULL, NULL, NULL, $request, new Response(), NULL, NULL, NULL);
+				$presenter->injectPrimary(NULL, NULL, NULL, $request, new Response(), NULL, NULL, $this->createTemplateFactory($request));
 			}
 
 			foreach ($this->onCreate as $callback) {
@@ -50,6 +54,14 @@ class Presenter {
 
 			return $presenter;
 		});
+	}
+
+	private function createTemplateFactory(IRequest $request) {
+		if (class_exists(Engine::class)) {
+			return new TemplateFactory(new LatteFactory(), $request);
+		}
+
+		return NULL;
 	}
 
 	/**

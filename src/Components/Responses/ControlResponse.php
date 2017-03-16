@@ -5,39 +5,52 @@ namespace WebChemistry\Testing\Components\Responses;
 use Nette\Application\IPresenter;
 use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Presenter;
+use Nette\ComponentModel\IComponent;
 use WebChemistry\Testing\TMagicGet;
 
 /**
  * @property-read mixed|TextResponse $response
  * @property-read IPresenter|Presenter $presenter
+ * @property-read IComponent $control
  */
-class PresenterResponse {
+class ControlResponse {
 
 	use TMagicGet;
 
-	/** @var mixed */
+	/** @var PresenterResponse */
 	private $response;
 
-	/** @var IPresenter */
-	private $presenter;
+	/** @var string */
+	private $name;
 
-	public function __construct($response, IPresenter $presenter) {
+	/**
+	 * @param PresenterResponse $response
+	 * @param string $name
+	 */
+	public function __construct(PresenterResponse $response, $name) {
 		$this->response = $response;
-		$this->presenter = $presenter;
+		$this->name = $name;
 	}
 
 	/**
 	 * @return mixed|TextResponse
 	 */
 	public function getResponse() {
-		return $this->response;
+		return $this->response->getResponse();
 	}
 
 	/**
 	 * @return IPresenter|Presenter
 	 */
 	public function getPresenter() {
-		return $this->presenter;
+		return $this->response->getPresenter();
+	}
+
+	/**
+	 * @return IComponent
+	 */
+	public function getControl() {
+		return $this->response->getPresenter()[$this->name];
 	}
 
 }

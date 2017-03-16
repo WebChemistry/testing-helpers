@@ -14,6 +14,8 @@ use WebChemistry\Testing\Components;
  */
 class Services {
 
+	use TMagicGet;
+
 	/** @var Components\Presenter */
 	private $presenter;
 
@@ -70,10 +72,6 @@ class Services {
 		}
 
 		return $this->control;
-	}
-
-	public function __get($name) {
-		return ObjectMixin::get($this, $name);
 	}
 
 }
