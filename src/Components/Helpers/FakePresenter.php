@@ -9,6 +9,23 @@ class FakePresenter extends Presenter {
 	/** @var callable[] */
 	private $forms = [];
 
+	/** @var callable */
+	private $action;
+
+	/** @var string */
+	private $active;
+
+	public function setActive($name) {
+		$this->active = $name;
+	}
+
+	/**
+	 * @param callable|NULL $action
+	 */
+	public function setActionCallback(callable $action = NULL) {
+		$this->action = $action;
+	}
+
 	/**
 	 * @param callable[] $forms
 	 */
@@ -23,6 +40,12 @@ class FakePresenter extends Presenter {
 			$this->addComponent($callback(), $name);
 		}
 		$this->forms = [];
+	}
+
+	public function actionDefault() {
+		if ($callback = $this->action) {
+			$callback($this[$this->active]);
+		}
 	}
 
 	protected function afterRender() {

@@ -63,14 +63,20 @@ class Form {
 	 * @return Responses\FormResponse
 	 * @throws TestException
 	 */
-	public function send($name, array $post = [], array $files = []) {
+	public function send($name, array $post = [], array $files = [], callable $actionCallback = NULL) {
 		if (!isset($this->forms[$name])) {
 			throw new TestException("Form '$name' not exists.");
 		}
 
-		$response = $this->presenters->createRequest('Fake', 'POST', [
+		/** @var FakePresenter $presenter */
+		$presenter = $this->presenters->createPresenter('Fake');
+		$presenter->setActive($name);
+		$presenter->setActionCallback($actionCallback);
+
+		$response = $this->presenters->createRequest($presenter, 'POST', [
 			'do' => $name . '-submit'
 		], $post, $files);
+
 		$presenter = $response->getPresenter();
 
 		return new Responses\FormResponse($response->getResponse(), $presenter->getComponent($name));

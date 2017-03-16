@@ -2,7 +2,7 @@
 
 namespace WebChemistry\Testing\Components\Responses;
 
-use Nette\Forms\Form;
+use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\ObjectMixin;
 

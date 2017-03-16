@@ -8,7 +8,7 @@ class FormTest extends \Codeception\Test\Unit {
 
 	use TUnitTest;
 
-	public function testAddForm() {
+	public function _before() {
 		$this->services->form->addForm('control', function () {
 			$form = new Form();
 
@@ -19,14 +19,6 @@ class FormTest extends \Codeception\Test\Unit {
 	}
 
 	public function testSend() {
-		$this->services->form->addForm('control', function () {
-			$form = new Form();
-
-			$form->addText('name');
-
-			return $form;
-		});
-
 		$response = $this->services->form->send('control', ['name' => 'foo']);
 
 		$this->assertInstanceOf(FormResponse::class, $response);
@@ -49,6 +41,14 @@ class FormTest extends \Codeception\Test\Unit {
 
 		$this->assertSame('foo', $response->getValue('name'));
 		$this->assertSame('bar', $response->getValue('container.name'));
+	}
+
+	public function testActionCallback() {
+		$response = $this->services->form->send('control', [], [], function (Form $form) {
+			$form['name']->setValue('foo');
+		});
+
+		$this->assertSame('foo', $response->getValue('name'));
 	}
 
 }
