@@ -1,6 +1,6 @@
 <?php
 
-namespace WebChemistry\Test\Components\Responses;
+namespace WebChemistry\Testing\Components\Responses;
 
 use Nette\Application\IPresenter;
 

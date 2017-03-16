@@ -1,10 +1,10 @@
 <?php
 
-namespace WebChemistry\Test\Components;
+namespace WebChemistry\Testing\Components;
 
-use WebChemistry\Test\Components\Helpers\FakePresenter;
-use WebChemistry\Test\TestException;
-use WebChemistry\Test\Components\Responses;
+use WebChemistry\Testing\Components\Helpers\FakePresenter;
+use WebChemistry\Testing\TestException;
+use WebChemistry\Testing\Components\Responses;
 
 class Form {
 
@@ -14,7 +14,7 @@ class Form {
 	public function __construct() {
 		$this->presenters = new Presenter();
 		$this->presenters->onCreate[] = [$this, '__onCreatePresenter'];
-		$this->presenters->setMapping('*', 'WebChemistry\Test\Components\Helpers\*Presenter');
+		$this->presenters->setMapping('*', 'WebChemistry\Testing\Components\Helpers\*Presenter');
 	}
 
 	/**
@@ -33,7 +33,29 @@ class Form {
 		$this->forms[$name] = $form;
 	}
 
-	public function createRequest($name, array $post = [], array $files = []) {
+	/**
+	 * Sends form
+	 *
+	 * @deprecated
+	 * @param string $name
+	 * @param array $post
+	 * @param array $files
+	 * @return Responses\FormResponse
+	 */
+	public function createRequest($name, array $post = [], array $files) {
+		return $this->send($name, $post, $files);
+	}
+
+	/**
+	 * Sends form
+	 *
+	 * @param string $name
+	 * @param array $post
+	 * @param array $files
+	 * @return Responses\FormResponse
+	 * @throws TestException
+	 */
+	public function send($name, array $post = [], array $files = []) {
 		if (!isset($this->forms[$name])) {
 			throw new TestException("Form '$name' not exists.");
 		}

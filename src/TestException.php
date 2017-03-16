@@ -1,5 +1,5 @@
 <?php
 
-namespace WebChemistry\Test;
+namespace WebChemistry\Testing;
 
 class TestException extends \Exception {}

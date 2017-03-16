@@ -1,43 +1,64 @@
 <?php
 
-namespace WebChemistry\Test;
+namespace WebChemistry\Testing;
 
 use Nette\Application\IPresenterFactory;
-use WebChemistry\Test\Components;
+use Nette\Utils\ObjectMixin;
+use WebChemistry\Testing\Components;
 
+/**
+ * @property-read Components\Form $form
+ * @property-read Components\FileSystem $fileSystem
+ * @property-read Components\Presenter $presenter
+ */
 class Services {
 
 	/** @var Components\Presenter */
-	private static $presenters;
+	private $presenter;
 
 	/** @var Components\Form */
-	private static $forms;
+	private $form;
 
-	/** @var  */
-	private static $fileSystem;
+	/** @var Components\FileSystem */
+	private $fileSystem;
 
-	public static function presenters(IPresenterFactory $presenterFactory = NULL) {
-		if (!self::$presenters || $presenterFactory) {
-			self::$presenters = new Components\Presenter($presenterFactory);
+	/**
+	 * @param IPresenterFactory|NULL $presenterFactory
+	 * @return Components\Presenter
+	 */
+	public function getPresenter(IPresenterFactory $presenterFactory = NULL) {
+		if (!$this->presenter || $presenterFactory) {
+			$this->presenter = new Components\Presenter($presenterFactory);
 		}
 
-		return self::$presenters;
+		return $this->presenter;
 	}
 
-	public static function forms($force = FALSE) {
-		if (!self::$forms || $force) {
-			self::$forms = new Components\Form();
+	/**
+	 * @param bool $force
+	 * @return Components\Form
+	 */
+	public function getForm($force = FALSE) {
+		if (!$this->form || $force) {
+			$this->form = new Components\Form();
 		}
 
-		return self::$forms;
+		return $this->form;
 	}
 
-	public static function fileSystem() {
-		if (!self::$fileSystem) {
-			self::$fileSystem = new Components\FileSystem();
+	/**
+	 * @return Components\FileSystem
+	 */
+	public function getFileSystem() {
+		if (!$this->fileSystem) {
+			$this->fileSystem = new Components\FileSystem();
 		}
 
-		return self::$fileSystem;
+		return $this->fileSystem;
+	}
+
+	public function __get($name) {
+		return ObjectMixin::get($this, $name);
 	}
 
 }

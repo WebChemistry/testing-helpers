@@ -1,6 +1,6 @@
 <?php
 
-namespace WebChemistry\Test\Components;
+namespace WebChemistry\Testing\Components;
 
 use Nette\Application\IPresenter;
 use Nette\Application\IPresenterFactory;
@@ -9,7 +9,7 @@ use Nette\Application\Request;
 use Nette\Application\UI;
 use Nette\Http\Response;
 use Nette\Http\UrlScript;
-use WebChemistry\Test\Components\Responses;
+use WebChemistry\Testing\Components\Responses;
 
 class Presenter {
 
@@ -60,6 +60,15 @@ class Presenter {
 		return $this->presenterFactory->createPresenter($name);
 	}
 
+	/**
+	 * @param string $presenter
+	 * @param string $method
+	 * @param array $params
+	 * @param array $post
+	 * @param array $files
+	 * @param array $flags
+	 * @return Responses\PresenterResponse
+	 */
 	public function createRequest($presenter, $method = 'GET', array $params = [], array $post = [], array $files = [], array $flags = []) {
 		$class = self::createPresenter($presenter);
 		$request = new Request($presenter, $method, $params, $post, $files, $flags);

@@ -2,7 +2,17 @@
 	"name": "webchemistry/testing-helpers",
 	"type": "library",
 	"desc": "Testing helpers for nette presenters and components",
+	"require-dev": {
+		"codeception/codeception": "~2.2",
+		"nette/application": "~2.4",
+		"nette/forms": "~2.4"
+	},
 	"autoload": {
-		"classmap": ["src/"]
+		"psr-4": {
+			"WebChemistry\\Testing\\": "src/"
+		}
+	},
+	"config": {
+		"bin-dir": "bin"
 	}
 }
