@@ -5,6 +5,7 @@ namespace WebChemistry\Testing\Components\Responses;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\ObjectMixin;
+use WebChemistry\Testing\TMagicGet;
 
 /**
  * @property-read Form $form
@@ -12,6 +13,8 @@ use Nette\Utils\ObjectMixin;
  * @property-read array|ArrayHash $values
  */
 class FormResponse {
+
+	use TMagicGet;
 
 	/** @var mixed */
 	private $response;
