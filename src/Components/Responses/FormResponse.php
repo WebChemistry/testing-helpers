@@ -16,13 +16,13 @@ class FormResponse {
 
 	use TMagicGet;
 
-	/** @var mixed */
+	/** @var PresenterResponse */
 	private $response;
 
 	/** @var Form */
 	private $form;
 
-	public function __construct($response, Form $form) {
+	public function __construct(PresenterResponse $response, Form $form) {
 		$this->response = $response;
 		$this->form = $form;
 	}
@@ -38,7 +38,7 @@ class FormResponse {
 	 * @return mixed
 	 */
 	public function getResponse() {
-		return $this->response;
+		return $this->response->getResponse();
 	}
 
 	/**
