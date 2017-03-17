@@ -47,8 +47,7 @@ class ControlTest extends \Codeception\Test\Unit {
 			'param' => 'str',
 		]);
 
-		// Todo
-		//$this->assertSame('test str', $response);
+		$this->assertSame('test str', $response);
 	}
 
 	public function testRenderToStringActionCallback() {

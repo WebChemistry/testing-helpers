@@ -30,6 +30,10 @@ class Control {
 		$presenter->setControls($this->controls);
 	}
 
+	/**
+	 * @param string $name
+	 * @param callable $callback
+	 */
 	public function addControl($name, callable $callback) {
 		$this->controls[$name] = $callback;
 	}

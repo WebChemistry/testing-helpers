@@ -37,6 +37,9 @@ class Presenter {
 		]);
 	}
 
+	/**
+	 * @return PresenterFactory
+	 */
 	private function createPresenterFactory() {
 		return new PresenterFactory(function ($class) {
 			$presenter = new $class;
@@ -56,6 +59,10 @@ class Presenter {
 		});
 	}
 
+	/**
+	 * @param IRequest $request
+	 * @return TemplateFactory|null
+	 */
 	private function createTemplateFactory(IRequest $request) {
 		if (class_exists(Engine::class)) {
 			return new TemplateFactory(new LatteFactory(), $request);

@@ -15,6 +15,9 @@ class ControlPresenter extends Presenter {
 	/** @var callable */
 	private $action;
 
+	/** @var callable[] */
+	private $controls;
+
 	public function setActionCallback(callable $action = NULL) {
 		$this->action = $action;
 	}
@@ -31,9 +34,16 @@ class ControlPresenter extends Presenter {
 	 * @param array $controls
 	 */
 	public function setControls(array $controls) {
-		foreach ($controls as $name => $callback) {
+		$this->controls = $controls;
+	}
+
+	protected function startup() {
+		parent::startup();
+
+		foreach ($this->controls as $name => $callback) {
 			$this->addComponent($callback(), $name);
 		}
+		$this->controls = [];
 	}
 
 	public function actionDefault() {
