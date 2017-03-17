@@ -1,6 +1,7 @@
 <?php
 
 use WebChemistry\Testing\Components\Control;
+use WebChemistry\Testing\Components\Helpers\Helpers;
 use WebChemistry\Testing\TUnitTest;
 
 class ControlTest extends \Codeception\Test\Unit {
@@ -13,12 +14,7 @@ class ControlTest extends \Codeception\Test\Unit {
 		});
 	}
 
-	protected function _after() {
-	}
-
 	public function testAnalyzeParams() {
-		$callback = $this->reflection->getMethodCallback(Control::class, 'analyzeParams');
-
 		$array = [
 			'foo' => 'value',
 			'bar' => [
@@ -26,7 +22,7 @@ class ControlTest extends \Codeception\Test\Unit {
 			],
 			'control-param' => 'val',
 		];
-		$callback($array, 'control');
+		Helpers::analyzeParams($array, 'control');
 
 		$this->assertEquals([
 			'control-foo' => 'value',

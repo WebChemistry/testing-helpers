@@ -10,12 +10,8 @@ trait TUnitTest {
 	/** @var Services */
 	protected $services;
 
-	/** @var Reflection */
-	protected $reflection;
-
 	protected function setUp() {
 		$this->services = new Services();
-		$this->reflection = new Reflection();
 
 		parent::setUp();
 	}

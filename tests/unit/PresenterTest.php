@@ -36,4 +36,6 @@ class MyPresenter extends Presenter {
 		$this->sendResponse(new TextResponse('test'));
 	}
 
+
+
 }
