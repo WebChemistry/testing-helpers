@@ -2,27 +2,28 @@
 
 namespace WebChemistry\Testing\Components;
 
-use WebChemistry\Testing\Components\Helpers\FakePresenter;
-use WebChemistry\Testing\TestException;
-use WebChemistry\Testing\Components\Responses;
+use Nette\Application\IPresenter;
+use WebChemistry\Testing\Components\Builders\FormSender;
 
 class Form {
 
 	/** @var callable[] */
 	private $forms;
 
+	/** @var IPresenter */
+	private $presenter;
+
+	/** @var array */
+	private $counter = [];
+
+	/** @var Presenter */
+	private $presenters;
+
 	public function __construct() {
 		$this->presenters = new Presenter();
-		$this->presenters->onCreate[] = [$this, '__onCreatePresenter'];
 		$this->presenters->setMapping('*', 'WebChemistry\Testing\Components\Helpers\*Presenter');
-	}
 
-	/**
-	 * @param FakePresenter $presenter
-	 * @internal
-	 */
-	public function __onCreatePresenter(FakePresenter $presenter) {
-		$presenter->setForms($this->forms);
+		$this->presenter = $this->presenters->createPresenter('Fake');
 	}
 
 	/**
@@ -31,53 +32,42 @@ class Form {
 	 */
 	public function addForm($name, callable $form) {
 		$this->forms[$name] = $form;
+		$this->counter[$name] = 1;
 	}
 
 	/**
 	 * @param string $name
 	 * @return \Nette\Application\UI\Form
 	 */
-	public function getForm($name) {
-		return $this->forms[$name]();
+	public function createForm($name) {
+		$args = func_get_args(); array_shift($args);
+		$form = call_user_func_array($this->forms[$name], $args);
+		$this->presenter->addComponent($form, $name . $this->counter[$name]++);
+
+		return $form;
 	}
 
 	/**
-	 * Sends form
-	 *
-	 * @deprecated
 	 * @param string $name
-	 * @param array $post
-	 * @param array $files
-	 * @return Responses\FormResponse
+	 * @param ... $params
+	 * @return \Nette\Application\UI\Form
 	 */
-	public function createRequest($name, array $post = [], array $files) {
-		return $this->send($name, $post, $files);
+	public function createPureForm($name) {
+		$args = func_get_args(); array_shift($args);
+
+		return call_user_func_array($this->forms[$name], $args);
 	}
 
 	/**
-	 * Sends form
-	 *
 	 * @param string $name
-	 * @param array $post
-	 * @param array $files
-	 * @return Responses\FormResponse
-	 * @throws TestException
+	 * @param ... $params
+	 * @return FormSender
 	 */
-	public function send($name, array $post = [], array $files = [], callable $actionCallback = NULL) {
-		if (!isset($this->forms[$name])) {
-			throw new TestException("Form '$name' not exists.");
-		}
+	public function createSender($name) {
+		$args = func_get_args(); array_shift($args);
+		$form = call_user_func_array($this->forms[$name], $args);
 
-		/** @var FakePresenter $presenter */
-		$presenter = $this->presenters->createPresenter('Fake');
-		$presenter->setActive($name);
-		$presenter->setActionCallback($actionCallback);
-
-		$response = $this->presenters->createRequest($presenter, 'POST', [
-			'do' => $name . '-submit'
-		], $post, $files);
-
-		return new Responses\FormResponse($response, $name);
+		return new FormSender($form, $this->presenters, $name);
 	}
 
 }

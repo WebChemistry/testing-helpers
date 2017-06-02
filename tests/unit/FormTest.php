@@ -16,10 +16,20 @@ class FormTest extends \Codeception\Test\Unit {
 
 			return $form;
 		});
+
+		$this->services->form->addForm('controlParams', function ($param) {
+			$form = new Form();
+
+			$form->addText($param);
+
+			return $form;
+		});
 	}
 
 	public function testSend() {
-		$response = $this->services->form->send('control', ['name' => 'foo']);
+		$sender = $this->services->form->createSender('control');
+		$sender->addPost('name', 'foo');
+		$response = $sender->send();
 
 		$this->assertInstanceOf(FormResponse::class, $response);
 		$this->assertTrue($response->getForm()->isSubmitted());
@@ -37,18 +47,40 @@ class FormTest extends \Codeception\Test\Unit {
 			return $form;
 		});
 
-		$response = $this->services->form->send('control', ['name' => 'foo', 'container' => ['name' => 'bar']]);
+		$sender = $this->services->form->createSender('control');
+		$sender->addPost('name', 'foo');
+		$sender->addPost('container', ['name' => 'bar']);
+		$response = $sender->send();
 
 		$this->assertSame('foo', $response->getValue('name'));
 		$this->assertSame('bar', $response->getValue('container.name'));
 	}
 
-	public function testActionCallback() {
-		$response = $this->services->form->send('control', [], [], function (Form $form) {
-			$form['name']->setValue('foo');
-		});
+	public function testSendWithParameters() {
+		$sender = $this->services->form->createSender('controlParams', 'input');
 
-		$this->assertSame('foo', $response->getValue('name'));
+		$sender->addPost('input', 'val');
+
+		$this->assertSame('val', $sender->send()->getValue('input'));
+	}
+
+	public function testCreateForm() {
+		$form = $this->services->form->createForm('control');
+		$this->assertSame('control1', $form->getName());
+
+		$form = $this->services->form->createForm('control');
+		$this->assertSame('control2', $form->getName());
+	}
+
+	public function testCreatePureForm() {
+		$form = $this->services->form->createPureForm('control');
+		$this->assertNull($form->getParent());
+	}
+
+	public function testCreateFormWithParameters() {
+		$form = $this->services->form->createForm('controlParams', 'input');
+
+		$this->assertNotNull($form->getComponent('input'));
 	}
 
 }
