@@ -4,8 +4,8 @@ namespace WebChemistry\Testing\Components;
 
 use Nette\Application\IPresenter;
 use Nette\Bridges\ApplicationLatte\Template;
-use Nette\Utils\Strings;
 use WebChemistry\Testing\Components\Helpers\ControlPresenter;
+use WebChemistry\Testing\Components\Helpers\Helpers;
 use WebChemistry\Testing\Components\Responses\ControlResponse;
 
 class Control {
@@ -50,7 +50,7 @@ class Control {
 		$presenter->setRender();
 		$presenter->setActionCallback($actionCallback);
 
-		$this->analyzeParams($params, $name);
+		Helpers::analyzeParams($params, $name);
 
 		return new ControlResponse($this->presenter->createRequest($presenter, 'GET', $params), $name);
 	}
@@ -67,7 +67,7 @@ class Control {
 		$presenter->setRender();
 		$presenter->setActionCallback($actionCallback);
 
-		$this->analyzeParams($params, $name);
+		Helpers::analyzeParams($params, $name);
 
 		$response = $this->presenter->createRequest($presenter, 'GET', $params);
 
@@ -75,16 +75,6 @@ class Control {
 		$template = $response->getResponse()->getSource();
 
 		return trim((string) $template);
-	}
-
-	private function analyzeParams(array &$params, $controlName) {
-		$controlName .= '-';
-		foreach ($params as $name => $value) {
-			if (!Strings::startsWith($name, $controlName)) {
-				unset($params[$name]);
-				$params[$controlName . $name] = $value;
-			}
-		}
 	}
 
 	/**

@@ -13,6 +13,7 @@ use Nette\Http\IRequest;
 use Nette\Http\Response;
 use Nette\Http\UrlScript;
 use WebChemistry\Testing\Components\Helpers\LatteFactory;
+use WebChemistry\Testing\Components\Helpers\RouterStub;
 use WebChemistry\Testing\Components\Responses;
 
 class Presenter {
@@ -48,7 +49,7 @@ class Presenter {
 				$presenter->autoCanonicalize = FALSE;
 
 				$request = new \Nette\Http\Request(new UrlScript('http://localhost/'));
-				$presenter->injectPrimary(NULL, NULL, NULL, $request, new Response(), NULL, NULL, $this->createTemplateFactory($request));
+				$presenter->injectPrimary(NULL, NULL, new RouterStub(), $request, new Response(), NULL, NULL, $this->createTemplateFactory($request));
 			}
 
 			foreach ($this->onCreate as $callback) {
@@ -98,6 +99,21 @@ class Presenter {
 		$request = new Request($presenter, $method, $params, $post, $files, $flags);
 
 		return new Responses\PresenterResponse($class->run($request), $class);
+	}
+
+	/**
+	 * @param string|IPresenter $presenter
+	 * @return Hierarchy\Presenter
+	 */
+	public function createHierarchy($presenter) {
+		if (!$presenter instanceof IPresenter) {
+			$class = self::createPresenter($presenter);
+		} else {
+			$class = $presenter;
+			$presenter = 'Foo';
+		}
+
+		return new \WebChemistry\Testing\Components\Hierarchy\Presenter($presenter, $class);
 	}
 
 }

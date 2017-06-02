@@ -77,9 +77,7 @@ class Form {
 			'do' => $name . '-submit'
 		], $post, $files);
 
-		$presenter = $response->getPresenter();
-
-		return new Responses\FormResponse($response->getResponse(), $presenter->getComponent($name));
+		return new Responses\FormResponse($response, $name);
 	}
 
 }

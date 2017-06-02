@@ -1,0 +1,12 @@
+<form action="/" method="post" id="frm-form">
+
+<table>
+<tr>
+	<th><label for="frm-form-name">Name</label></th>
+
+	<td><input type="text" name="name" id="frm-form-name" class="text"></td>
+</tr>
+</table>
+
+<input type="hidden" name="_do" value="form-submit"><!--[if IE]><input type=IEbug disabled style="display:none"><![endif]-->
+</form>

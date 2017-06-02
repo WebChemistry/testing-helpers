@@ -1,5 +1,7 @@
 <?php
 
+use WebChemistry\Testing\Components\Helpers\Helpers;
+
 class HelperTest extends \Codeception\Test\Unit {
 
 	use \WebChemistry\Testing\TUnitTest;
@@ -32,6 +34,14 @@ class HelperTest extends \Codeception\Test\Unit {
 		$this->assertInstanceOf(\WebChemistry\Testing\Components\FileSystem::class, $this->services->fileSystem);
 		$this->assertInstanceOf(\WebChemistry\Testing\Components\FileSystem::class, $this->services->getFileSystem());
 		$this->assertSame($this->services->getFileSystem(), $this->services->fileSystem);
+	}
+
+	public function testExtractPathToArray() {
+		$this->assertSame([
+			'name' => [
+				'val' => 'foo'
+			]
+		], Helpers::extractPathToArray('name.val', 'foo'));
 	}
 
 }
