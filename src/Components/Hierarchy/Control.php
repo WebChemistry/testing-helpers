@@ -2,10 +2,12 @@
 
 namespace WebChemistry\Testing\Components\Hierarchy;
 
+use Nette\Application\IPresenter;
 use WebChemistry\Testing\Components\Helpers\Helpers;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses\ControlResponse;
 use WebChemistry\Testing\TestException;
+use Nette\ComponentModel\Container;
 use Nette\Application\UI;
 
 class Control {
@@ -13,16 +15,16 @@ class Control {
 	/** @var PresenterRequest */
 	protected $request;
 
-	/** @var UI\Control */
+	/** @var Container */
 	protected $control;
 
-	public function __construct(PresenterRequest $request, UI\Control $control) {
+	public function __construct(PresenterRequest $request, Container $control) {
 		$this->request = $request;
 		$this->control = $control;
 	}
 
 	/**
-	 * @return UI\Control
+	 * @return Container
 	 */
 	public function getObject() {
 		return $this->control;
@@ -38,8 +40,8 @@ class Control {
 		if ($ctrl instanceof UI\Form) {
 			throw new TestException("Component '$name' is form, use getForm instead of getControl.");
 		}
-		if (!$ctrl instanceof UI\Control) {
-			throw new TestException("Component '$name' must be instance of " . UI\Control::class);
+		if (!$ctrl instanceof Container) {
+			throw new TestException("Component '$name' must be instance of " . Container::class);
 		}
 
 		return new Control($this->request, $ctrl);
@@ -64,7 +66,7 @@ class Control {
 	 * @return static
 	 */
 	public function addParams(array $params) {
-		Helpers::analyzeParams($params, $this->control->getUniqueId());
+		Helpers::analyzeParams($params, $this->control->lookupPath(IPresenter::class));
 		$this->request->addParams($params);
 
 		return $this;
@@ -75,15 +77,15 @@ class Control {
 	 * @return ControlResponse
 	 */
 	public function sendSignal($signal) {
-		$this->request->setSignal($this->control->getUniqueId() . '-' . $signal);
+		$this->request->setSignal($this->control->lookupPath(IPresenter::class) . '-' . $signal);
 
-		return new ControlResponse($this->request->send(), $this->control->getUniqueId());
+		return new ControlResponse($this->request->send(), $this->control->lookupPath(IPresenter::class));
 	}
 
 	public function render() {
 		ob_start();
 
-		$this->request->send()->getPresenter()->getComponent($this->control->getUniqueId())->render();
+		$this->request->send()->getPresenter()->getComponent($this->control->lookupPath(IPresenter::class))->render();
 
 		return trim(ob_get_clean());
 	}
