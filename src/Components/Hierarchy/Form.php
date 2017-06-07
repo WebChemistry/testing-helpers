@@ -68,7 +68,6 @@ class Form {
 	 * @return static
 	 */
 	public function setValues(array $values) {
-		Helpers::analyzeParams($values, $this->getUniqueId(TRUE));
 		$this->request->addPosts($values);
 
 		return $this;
