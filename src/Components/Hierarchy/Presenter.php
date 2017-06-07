@@ -16,9 +16,27 @@ class Presenter {
 	/** @var IPresenter|UI\Presenter */
 	protected $presenter;
 
+	/** @var IPresenter|UI\Presenter */
+	protected $requestPresenter;
+
+	/** @var \WebChemistry\Testing\Components\Presenter */
+	private $presenterService;
+
+	/** @var string */
+	private $name;
+
 	public function __construct($name, \WebChemistry\Testing\Components\Presenter $presenterService) {
-		$this->request = new PresenterRequest($presenterService, $presenter = $presenterService->createPresenter($name), $name);
+		$this->request = new PresenterRequest($presenterService, $this->requestPresenter = $presenterService->createPresenter($name), $name);
 		$this->presenter = $presenterService->createPresenter($name);
+		$this->presenterService = $presenterService;
+		$this->name = $name;
+	}
+
+	public function cleanup() {
+		$this->request = new PresenterRequest($this->presenterService, $this->requestPresenter, $this->name);
+		foreach ($this->requestPresenter->getComponents() as $component) {
+			$this->requestPresenter->removeComponent($component);
+		}
 	}
 
 	/**
