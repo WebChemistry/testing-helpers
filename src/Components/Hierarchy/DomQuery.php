@@ -9,7 +9,8 @@ namespace WebChemistry\Testing\Components\Hierarchy;
 class DomQuery extends \SimpleXMLElement {
 
 	/**
-	 * @return self
+	 * @param string $html
+	 * @return DomQuery
 	 */
 	public static function fromHtml($html) {
 		if (strpos($html, '<') === FALSE) {
@@ -39,7 +40,8 @@ class DomQuery extends \SimpleXMLElement {
 	}
 
 	/**
-	 * @return self
+	 * @param string $xml
+	 * @return DomQuery
 	 */
 	public static function fromXml($xml) {
 		return simplexml_load_string($xml, __CLASS__);
@@ -47,6 +49,7 @@ class DomQuery extends \SimpleXMLElement {
 
 	/**
 	 * Returns array of descendants filtered by a selector.
+	 * @param string $selector
 	 * @return DomQuery[]
 	 */
 	public function find($selector) {
@@ -55,6 +58,7 @@ class DomQuery extends \SimpleXMLElement {
 
 	/**
 	 * Check the current document against a selector.
+	 * @param string $selector
 	 * @return bool
 	 */
 	public function has($selector) {
@@ -63,6 +67,7 @@ class DomQuery extends \SimpleXMLElement {
 
 	/**
 	 * Transforms CSS expression to XPath.
+	 * @param string $css
 	 * @return string
 	 */
 	public static function css2xpath($css) {

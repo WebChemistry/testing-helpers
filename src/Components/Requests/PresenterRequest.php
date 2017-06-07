@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace WebChemistry\Testing\Components\Requests;
 
 use Nette\Application\IPresenter;
-use Nette\Application\Request;
 use WebChemistry\Testing\Components\Presenter;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TestException;

@@ -5,7 +5,6 @@ namespace WebChemistry\Testing\Components\Responses;
 use Nette\Application\IPresenter;
 use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Presenter;
-use Nette\Bridges\ApplicationLatte\Template;
 use WebChemistry\Testing\Components\Hierarchy\DomQuery;
 use WebChemistry\Testing\TMagicGet;
 

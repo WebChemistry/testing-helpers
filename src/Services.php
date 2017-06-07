@@ -3,7 +3,6 @@
 namespace WebChemistry\Testing;
 
 use Nette\Application\IPresenterFactory;
-use Nette\Utils\ObjectMixin;
 use WebChemistry\Testing\Components;
 
 /**

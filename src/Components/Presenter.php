@@ -6,7 +6,6 @@ use Latte\Engine;
 use Nette\Application\IPresenter;
 use Nette\Application\IPresenterFactory;
 use Nette\Application\PresenterFactory;
-use Nette\Application\Request;
 use Nette\Application\UI;
 use Nette\Bridges\ApplicationLatte\TemplateFactory;
 use Nette\Http\IRequest;
@@ -15,7 +14,6 @@ use Nette\Http\UrlScript;
 use WebChemistry\Testing\Components\Helpers\LatteFactory;
 use WebChemistry\Testing\Components\Helpers\RouterStub;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
-use WebChemistry\Testing\Components\Responses;
 
 class Presenter {
 
