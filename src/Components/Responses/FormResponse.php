@@ -14,6 +14,10 @@ class FormResponse extends BaseResponse {
 	/** @var string */
 	private $form;
 
+	/**
+	 * @param PresenterResponse $response
+	 * @param string $form
+	 */
 	public function __construct(PresenterResponse $response, $form) {
 		parent::__construct($response->getResponse(), $response->getPresenter());
 

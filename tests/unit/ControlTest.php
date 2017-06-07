@@ -33,33 +33,39 @@ class ControlTest extends \Codeception\Test\Unit {
 		], $array);
 	}
 
-	public function testRenderToString() {
-		$response = $this->services->control->renderToString('custom');
-		$this->assertSame('test', $response);
-	}
+	public function testSendParams() {
+		$request = $this->services->control->createRequest('custom');
 
-	public function testRenderToStringSendParam() {
-		$response = $this->services->control->renderToString('custom', [
-			'param' => 'str',
+		$request->setControlParams([
+			'foo' => 'bar',
 		]);
 
-		$this->assertSame('test str', $response);
+		$this->assertSame('bar', $request->send()->getControl()->foo);
 	}
 
-	public function testRenderToStringActionCallback() {
-		$response = $this->services->control->renderToString('custom', [], function (FooControl $control) {
-			$control->param = 'bar';
-		});
+	public function testSendParamsTwice() {
+		$request = $this->services->control->createRequest('custom');
+		$request->setControlParams([
+			'foo' => 'bar',
+		]);
 
-		$this->assertSame('test bar', $response);
+		$this->assertSame('bar', $request->send()->getControl()->foo);
+
+		$request->setControlParams([
+			'foo' => 'bar2',
+		]);
+
+		$this->assertSame('bar2', $request->send()->getControl()->foo);
 	}
 
-	public function testSendRequest() {
-		$response = $this->services->control->sendRequest('custom', [], function (FooControl $control) {
-			$control->param = 'bar';
-		});
+	public function testRenderString() {
+		$request = $this->services->control->createRequest('custom');
+		$request->setControlParams([
+			'foo' => 'bar',
+		]);
 
-		return $response->getControl()->param;
+		$source = $request->setRender()->send()->toString();
+		$this->assertSame('test bar', trim((string) $source));
 	}
 
 }
@@ -67,12 +73,12 @@ class ControlTest extends \Codeception\Test\Unit {
 class FooControl extends \Nette\Application\UI\Control {
 
 	/** @persistent @var string */
-	public $param = NULL;
+	public $foo = NULL;
 
 	public function render() {
 		$this->template->setFile(__DIR__ . '/templates/basic.latte');
 
-		$this->template->param = $this->param;
+		$this->template->param = $this->foo;
 
 		$this->template->render();
 	}

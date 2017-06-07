@@ -14,6 +14,7 @@ use Nette\Http\Response;
 use Nette\Http\UrlScript;
 use WebChemistry\Testing\Components\Helpers\LatteFactory;
 use WebChemistry\Testing\Components\Helpers\RouterStub;
+use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses;
 
 class Presenter {
@@ -21,21 +22,58 @@ class Presenter {
 	/** @var IPresenterFactory|PresenterFactory */
 	private $presenterFactory;
 
-	/** @var callable */
+	/** @var callable[] */
 	public $onCreate = [];
 
+	/** @var array */
+	private $mapping = [];
+
 	public function __construct(IPresenterFactory $presenterFactory = NULL) {
-		if (!$presenterFactory) {
+		if ($presenterFactory === NULL) {
 			$presenterFactory = $this->createPresenterFactory();
 		}
 
 		$this->presenterFactory = $presenterFactory;
 	}
 
-	public function setMapping($module, $mapping) {
-		$this->presenterFactory->setMapping([
-			$module => $mapping
-		]);
+	/**
+	 * @param array $mapping
+	 */
+	public function setMapping(array $mapping) {
+		$this->presenterFactory->setMapping($this->mapping = $mapping);
+	}
+
+	/**
+	 * @param string $module
+	 * @param string $mapping
+	 */
+	public function addMapping($module, $mapping) {
+		$this->mapping[$module] = $mapping;
+
+		$this->presenterFactory->setMapping($this->mapping);
+	}
+
+	/**
+	 * @param string $name
+	 * @return IPresenter|UI\Presenter
+	 */
+	public function createPresenter($name) {
+		return $this->presenterFactory->createPresenter($name);
+	}
+
+	/**
+	 * @param string|IPresenter $presenter
+	 * @return PresenterRequest
+	 */
+	public function createRequest($presenter) {
+		if (!$presenter instanceof IPresenter) {
+			$class = self::createPresenter($presenter);
+		} else {
+			$class = $presenter;
+			$presenter = 'Foo';
+		}
+
+		return new PresenterRequest($this, $class, $presenter);
 	}
 
 	/**
@@ -70,50 +108,6 @@ class Presenter {
 		}
 
 		return NULL;
-	}
-
-	/**
-	 * @param string $name
-	 * @return IPresenter|UI\Presenter
-	 */
-	public function createPresenter($name) {
-		return $this->presenterFactory->createPresenter($name);
-	}
-
-	/**
-	 * @param string|IPresenter $presenter
-	 * @param string $method
-	 * @param array $params
-	 * @param array $post
-	 * @param array $files
-	 * @param array $flags
-	 * @return Responses\PresenterResponse
-	 */
-	public function createRequest($presenter, $method = 'GET', array $params = [], array $post = [], array $files = [], array $flags = []) {
-		if (!$presenter instanceof IPresenter) {
-			$class = self::createPresenter($presenter);
-		} else {
-			$class = $presenter;
-			$presenter = 'Foo';
-		}
-		$request = new Request($presenter, $method, $params, $post, $files, $flags);
-
-		return new Responses\PresenterResponse($class->run($request), $class);
-	}
-
-	/**
-	 * @param string|IPresenter $presenter
-	 * @return Hierarchy\Presenter
-	 */
-	public function createHierarchy($presenter) {
-		if (!$presenter instanceof IPresenter) {
-			$class = self::createPresenter($presenter);
-		} else {
-			$class = $presenter;
-			$presenter = 'Foo';
-		}
-
-		return new \WebChemistry\Testing\Components\Hierarchy\Presenter($presenter, $class);
 	}
 
 }

@@ -20,7 +20,6 @@ class HelperTest extends \Codeception\Test\Unit {
 		$this->assertInstanceOf(\WebChemistry\Testing\Components\Form::class, $this->services->form);
 		$this->assertInstanceOf(\WebChemistry\Testing\Components\Form::class, $this->services->getForm());
 		$this->assertSame($this->services->getForm(), $this->services->getForm());
-		$this->assertNotSame($this->services->getForm(), $this->services->getForm(TRUE));
 		$this->assertSame($this->services->getForm(), $this->services->getForm());
 	}
 

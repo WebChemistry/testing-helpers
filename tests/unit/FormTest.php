@@ -27,7 +27,7 @@ class FormTest extends \Codeception\Test\Unit {
 	}
 
 	public function testSend() {
-		$sender = $this->services->form->createSender('control');
+		$sender = $this->services->form->createRequest('control');
 		$sender->addPost('name', 'foo');
 		$response = $sender->send();
 
@@ -47,7 +47,7 @@ class FormTest extends \Codeception\Test\Unit {
 			return $form;
 		});
 
-		$sender = $this->services->form->createSender('control');
+		$sender = $this->services->form->createRequest('control');
 		$sender->addPost('name', 'foo');
 		$sender->addPost('container', ['name' => 'bar']);
 		$response = $sender->send();
@@ -57,7 +57,7 @@ class FormTest extends \Codeception\Test\Unit {
 	}
 
 	public function testSendWithParameters() {
-		$sender = $this->services->form->createSender('controlParams', 'input');
+		$sender = $this->services->form->createRequest('controlParams', 'input');
 
 		$sender->addPost('input', 'val');
 

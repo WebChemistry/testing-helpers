@@ -11,6 +11,7 @@ use WebChemistry\Testing\Components;
  * @property-read Components\FileSystem $fileSystem
  * @property-read Components\Presenter $presenter
  * @property-read Components\Control $control
+ * @property-read Components\Hierarchy $hierarchy
  */
 class Services {
 
@@ -28,6 +29,9 @@ class Services {
 	/** @var Components\Control */
 	private $control;
 
+	/** @var Components\Hierarchy */
+	private $hierarchy;
+
 	/**
 	 * @param IPresenterFactory|NULL $presenterFactory
 	 * @return Components\Presenter
@@ -41,11 +45,10 @@ class Services {
 	}
 
 	/**
-	 * @param bool $force
 	 * @return Components\Form
 	 */
-	public function getForm($force = FALSE) {
-		if (!$this->form || $force) {
+	public function getForm() {
+		if (!$this->form) {
 			$this->form = new Components\Form();
 		}
 
@@ -72,6 +75,14 @@ class Services {
 		}
 
 		return $this->control;
+	}
+
+	public function getHierarchy() {
+		if (!$this->hierarchy) {
+			$this->hierarchy = new Components\Hierarchy();
+		}
+
+		return $this->hierarchy;
 	}
 
 }

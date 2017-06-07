@@ -47,9 +47,6 @@ abstract class BaseResponse {
 	 */
 	public function toString() {
 		$source = $this->response->getSource();
-		if ($source instanceof Template) {
-			return (string) $source;
-		}
 
 		return (string) $source;
 	}

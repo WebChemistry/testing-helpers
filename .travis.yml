@@ -14,9 +14,14 @@ matrix:
   allow_failures:
     - php: hhvm
     - php: nightly
+  include:
+    - php: 7.1
+      env: PHP_STAN=1
 
 install:
-    - composer self-update
-    - composer install
+  - composer self-update
+  - composer install
 
-script: bin/codecept run
+script:
+  - bin/codecept run
+  - if [ "$PHPSTAN" = "1" ]; then vendor/bin/phpstan analyse src --level=7 --ansi --no-progress -c phpstan.neon; fi

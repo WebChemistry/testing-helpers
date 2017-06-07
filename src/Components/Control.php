@@ -2,11 +2,8 @@
 
 namespace WebChemistry\Testing\Components;
 
-use Nette\Application\IPresenter;
-use Nette\Bridges\ApplicationLatte\Template;
-use WebChemistry\Testing\Components\Helpers\ControlPresenter;
-use WebChemistry\Testing\Components\Helpers\Helpers;
-use WebChemistry\Testing\Components\Responses\ControlResponse;
+use Nette\ComponentModel\IComponent;
+use WebChemistry\Testing\Components\Requests\ControlRequest;
 
 class Control {
 
@@ -18,70 +15,34 @@ class Control {
 
 	public function __construct() {
 		$this->presenter = new Presenter();
-		$this->presenter->onCreate[] = [$this, '__onCreatePresenter'];
-		$this->presenter->setMapping('*', 'WebChemistry\Testing\Components\Helpers\*Presenter');
-	}
-
-	/**
-	 * @param ControlPresenter $presenter
-	 * @internal
-	 */
-	public function __onCreatePresenter(ControlPresenter $presenter) {
-		$presenter->setControls($this->controls);
+		$this->presenter->addMapping('*', 'WebChemistry\Testing\Components\Presenters\*Presenter');
 	}
 
 	/**
 	 * @param string $name
 	 * @param callable $callback
+	 * @return static
 	 */
 	public function addControl($name, callable $callback) {
 		$this->controls[$name] = $callback;
+
+		return $this;
 	}
 
 	/**
 	 * @param string $name
-	 * @param array $params
-	 * @param callable $actionCallback
-	 * @return ControlResponse
+	 * @return IComponent
 	 */
-	public function sendRequest($name, array $params = [], callable $actionCallback = NULL) {
-		$presenter = $this->createPresenter();
-		$presenter->setActiveControl($name);
-		$presenter->setRender();
-		$presenter->setActionCallback($actionCallback);
-
-		Helpers::analyzeParams($params, $name);
-
-		return new ControlResponse($this->presenter->createRequest($presenter, 'GET', $params), $name);
+	public function createControl($name) {
+		return call_user_func($this->controls[$name]);
 	}
 
 	/**
 	 * @param string $name
-	 * @param array $params
-	 * @param callable $actionCallback
-	 * @return NULL|string null - cannot get template source
+	 * @return ControlRequest
 	 */
-	public function renderToString($name, array $params = [], callable $actionCallback = NULL) {
-		$presenter = $this->createPresenter();
-		$presenter->setActiveControl($name);
-		$presenter->setRender();
-		$presenter->setActionCallback($actionCallback);
-
-		Helpers::analyzeParams($params, $name);
-
-		$response = $this->presenter->createRequest($presenter, 'GET', $params);
-
-		/** @var Template $template */
-		$template = $response->getResponse()->getSource();
-
-		return trim((string) $template);
-	}
-
-	/**
-	 * @return ControlPresenter|IPresenter
-	 */
-	private function createPresenter() {
-		return $this->presenter->createPresenter('Control');
+	public function createRequest($name) {
+		return new ControlRequest($this->presenter, $this->createControl($name), $name);
 	}
 
 }

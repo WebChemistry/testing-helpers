@@ -1,6 +1,6 @@
 <?php
 
-namespace WebChemistry\Testing\Components\Helpers;
+namespace WebChemistry\Testing\Components\Presenters;
 
 use Nette\Application\UI\Presenter;
 

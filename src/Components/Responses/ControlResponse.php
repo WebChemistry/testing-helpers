@@ -23,7 +23,7 @@ class ControlResponse extends BaseResponse {
 	 * @return IComponent
 	 */
 	public function getControl() {
-		return $this->presenter[$this->name];
+		return $this->presenter->getComponent($this->name);
 	}
 
 }

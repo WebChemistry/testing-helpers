@@ -20,13 +20,7 @@ class PresenterTest extends \Codeception\Test\Unit {
 		$this->assertNotSame($this->services->presenter->createPresenter('My'), $this->services->presenter->createPresenter('My'));
 	}
 
-	public function testCreateRequest() {
-		$response = $this->services->presenter->createRequest('My');
-
-		$this->assertInstanceOf(PresenterResponse::class, $response);
-		$this->assertInstanceOf(TextResponse::class, $response->getResponse());
-		$this->assertSame('test', $response->getResponse()->getSource());
-	}
+	// Todo: tests
 
 }
 

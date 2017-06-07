@@ -3,14 +3,15 @@
 namespace WebChemistry\Testing\Components;
 
 use Nette\Application\IPresenter;
-use WebChemistry\Testing\Components\Builders\FormSender;
+use Nette\ComponentModel\IContainer;
+use WebChemistry\Testing\Components\Requests\FormRequest;
 
 class Form {
 
 	/** @var callable[] */
 	private $forms;
 
-	/** @var IPresenter */
+	/** @var IPresenter|IContainer */
 	private $presenter;
 
 	/** @var array */
@@ -21,7 +22,7 @@ class Form {
 
 	public function __construct() {
 		$this->presenters = new Presenter();
-		$this->presenters->setMapping('*', 'WebChemistry\Testing\Components\Helpers\*Presenter');
+		$this->presenters->addMapping('*', 'WebChemistry\Testing\Components\Presenters\*Presenter');
 
 		$this->presenter = $this->presenters->createPresenter('Fake');
 	}
@@ -61,13 +62,10 @@ class Form {
 	/**
 	 * @param string $name
 	 * @param ... $params
-	 * @return FormSender
+	 * @return FormRequest
 	 */
-	public function createSender($name) {
-		$args = func_get_args(); array_shift($args);
-		$form = call_user_func_array($this->forms[$name], $args);
-
-		return new FormSender($form, $this->presenters, $name);
+	public function createRequest($name) {
+		return new FormRequest($this->presenters, call_user_func_array([$this, 'createPureForm'], func_get_args()), $name);
 	}
 
 }

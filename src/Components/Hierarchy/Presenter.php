@@ -4,20 +4,21 @@ namespace WebChemistry\Testing\Components\Hierarchy;
 
 use Nette\Application\UI;
 use Nette\Application\IPresenter;
+use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TestException;
 
 class Presenter {
 
-	/** @var Request */
+	/** @var PresenterRequest */
 	protected $request;
 
 	/** @var IPresenter|UI\Presenter */
 	protected $presenter;
 
-	public function __construct($name, IPresenter $presenter) {
-		$this->request = new Request($name, $presenter);
-		$this->presenter = clone $presenter;
+	public function __construct($name, \WebChemistry\Testing\Components\Presenter $presenterService) {
+		$this->request = new PresenterRequest($presenterService, $presenter = $presenterService->createPresenter($name), $name);
+		$this->presenter = $presenterService->createPresenter($name);
 	}
 
 	/**
@@ -53,7 +54,7 @@ class Presenter {
 	 * @return static
 	 */
 	public function setAction($action) {
-		$this->request->setAction($action);
+		$this->request->setPresenterAction($action);
 
 		return $this;
 	}
@@ -69,33 +70,38 @@ class Presenter {
 	 * @return PresenterResponse
 	 */
 	public function send() {
-		return $this->request->sendRequest();
+		return $this->request->send();
 	}
 
 	/**
 	 * @return string
 	 */
 	public function render() {
-		return $this->request->sendRequest()->toString();
+		return $this->request->send()->toString();
 	}
 
 	/**
 	 * @return DomQuery
 	 */
 	public function renderDomQuery() {
-		return $this->request->sendRequest()->toDomQuery();
+		return $this->request->send()->toDomQuery();
+	}
+
+	/**
+	 * @param array $params
+	 */
+	public function addParams(array $params) {
+		$this->request->addParams($params);
 	}
 
 	/**
 	 * @param string $name
-	 * @param array $parameters
 	 * @return PresenterResponse
 	 */
-	public function sendSignal($name, array $parameters = []) {
+	public function sendSignal($name) {
 		$this->request->setSignal($name);
-		$this->request->addParameters($parameters);
 
-		return $this->request->sendRequest();
+		return $this->request->send();
 	}
 
 }

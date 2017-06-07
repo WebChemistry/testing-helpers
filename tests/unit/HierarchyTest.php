@@ -16,34 +16,35 @@ class HierarchyTest extends \Codeception\Test\Unit {
 	}
 
 	public function testSendPresenter() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
 
 		$this->assertSame('Test', $hierarchy->send()->toString());
 	}
 
 	public function testSendPresenterAction() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
 		$hierarchy->setAction('foo');
 
 		$this->assertSame('Test Foo action', $hierarchy->send()->toString());
 	}
 
 	public function testSendPresenterHandle() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
+		$hierarchy->addParams(['param' => 'handle']);
 
-		$this->assertSame('Test handle', $hierarchy->sendSignal('test', ['param' => 'handle'])->toString());
+		$this->assertSame('Test handle', $hierarchy->sendSignal('test')->toString());
 	}
 
 	public function testPresenterGetControl() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
 
 		$this->assertInstanceOf(MyControl::class, $hierarchy->getControl('control')->getObject());
 	}
 
 	public function testControlSignal() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
 
-		$response = $hierarchy->getControl('control')->sendSignal('test', ['param2' => 'test']);
+		$response = $hierarchy->getControl('control')->addParams(['param2' => 'test'])->sendSignal('test');
 		$this->assertSame('Test handle-control-test', $response->toString());
 		$this->assertInstanceOf(Control::class, $response->getControl());
 		$this->assertInstanceOf(Presenter::class, $response->getPresenter());
@@ -51,28 +52,28 @@ class HierarchyTest extends \Codeception\Test\Unit {
 	}
 
 	public function testControlPersistentParam() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
-		$hierarchy->getControl('control')->setParameters(['param' => 'test']);
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
+		$hierarchy->getControl('control')->addParams(['param' => 'test']);
 
 		$this->assertSame('Test test', $hierarchy->send()->toString());
 	}
 
 	public function testControlRender() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
-		$hierarchy->getControl('control')->setParameters(['param' => 'foo']);
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
+		$hierarchy->getControl('control')->addParams(['param' => 'foo']);
 
 		$this->assertSame('foo', $hierarchy->getControl('control')->render());
 	}
 
 	public function testSubControlRender() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
 
 		$this->assertSame('foo',
-			$hierarchy->getControl('control')->getControl('control')->setParameters(['param' => 'foo'])->render());
+			$hierarchy->getControl('control')->getControl('control')->addParams(['param' => 'foo'])->render());
 	}
 
 	public function testRenderPresenterForm() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi');
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
 
 		$this->assertStringEqualsFile(__DIR__ . '/expects/renderPresenterForm.expect', $hierarchy->setAction('form')->render());
 
@@ -81,7 +82,7 @@ class HierarchyTest extends \Codeception\Test\Unit {
 	}
 
 	public function testSendForm() {
-		$hierarchy = $this->services->presenter->createHierarchy('Hi')->setAction('form');
+		$hierarchy = $this->services->hierarchy->createHierarchy('Hi')->setAction('form');
 
 		$response = $hierarchy->getForm('form')->setValues([
 			'name' => 'Foo',
@@ -148,6 +149,7 @@ class MyControl extends Control {
 
 	public function handleTest($param2) {
 		$this->param = 'handle-control-' . $param2;
+		$this->template->param = $this->param;
 	}
 
 }
