@@ -4,16 +4,16 @@ namespace WebChemistry\Testing;
 
 trait TUnitTest {
 
-	/** @var \UnitTester */
-	protected $tester;
-
 	/** @var Services */
 	protected $services;
 
 	protected function setUp() {
 		$this->services = new Services();
 
-		parent::setUp();
+		$parent = get_parent_class($this);
+		if ($parent !== FALSE && method_exists($parent, 'setUp')) {
+			parent::setUp();
+		}
 	}
 
 	public function assetThrownException(callable $function, $class, $message = NULL, $code = NULL) {
