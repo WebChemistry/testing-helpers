@@ -83,4 +83,12 @@ class FormTest extends \Codeception\Test\Unit {
 		$this->assertNotNull($form->getComponent('input'));
 	}
 
+	public function testRequestRender() {
+		$request = $this->services->form->createRequest('control');
+		$response = $request->render();
+
+
+		$this->assertFalse($response->isSubmitted());
+	}
+
 }

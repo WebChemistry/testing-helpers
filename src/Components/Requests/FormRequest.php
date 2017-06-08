@@ -23,15 +23,22 @@ class FormRequest extends BaseRequest {
 	 * @return FormResponse
 	 */
 	public function send() {
+		$this->signal = $this->name . '-submit';
+		$this->setMethod('POST');
+
+		return $this->render();
+	}
+
+	/**
+	 * @return FormResponse
+	 */
+	public function render() {
 		/** @var FormPresenter $presenter */
 		$presenter = $this->presenterService->createPresenter('Form');
 		$presenter->name = $this->name;
 		$presenter->form = $this->form;
 
-		$this->signal = $this->name . '-submit';
-		$response = $this->createRequest($presenter, 'POST');
-
-		return new FormResponse($response, $this->name);
+		return new FormResponse($this->createRequest($presenter), $this->name);
 	}
 
 	public function setSignal($action) {
