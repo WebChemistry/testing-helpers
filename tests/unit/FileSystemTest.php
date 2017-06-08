@@ -13,7 +13,7 @@ class FileSystemTest extends \Codeception\Test\Unit {
 
 		$this->services->fileSystem->removeDirRecursive(__DIR__ . '/temp');
 
-		$this->assertDirectoryNotExists(__DIR__ . '/temp');
+		$this->assertTrue(!file_exists(__DIR__ . '/temp'));
 	}
 
 	public function testFileCount() {
