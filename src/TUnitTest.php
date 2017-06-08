@@ -38,7 +38,13 @@ trait TUnitTest {
 
 	public function assertDomHas(DomQuery $domQuery, $selector) {
 		if (!$domQuery->has($selector)) {
-			$this->fail("Element $selector not found in DOM.");
+			$this->fail("Element $selector not found in DOM");
+		}
+	}
+
+	public function assertDomNotHas(DomQuery $domQuery, $selector) {
+		if ($domQuery->has($selector)) {
+			$this->fail("Element $selector found in DOM");
 		}
 	}
 
