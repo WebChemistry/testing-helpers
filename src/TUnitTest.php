@@ -2,6 +2,8 @@
 
 namespace WebChemistry\Testing;
 
+use WebChemistry\Testing\Components\Hierarchy\DomQuery;
+
 trait TUnitTest {
 
 	/** @var Services */
@@ -31,6 +33,12 @@ trait TUnitTest {
 			$this->fail("$class with a message matching {$message} was expected but got {$e->getMessage()}");
 		} elseif ($code !== NULL && $e->getCode() !== $code) {
 			$this->fail("$class with a code {$code} was expected but got {$e->getCode()}");
+		}
+	}
+
+	public function assertDomHas(DomQuery $domQuery, $selector) {
+		if (!$domQuery->has($selector)) {
+			$this->fail("Element $selector not found in DOM.");
 		}
 	}
 
