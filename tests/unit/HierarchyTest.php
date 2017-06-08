@@ -74,8 +74,7 @@ class HierarchyTest extends \Codeception\Test\Unit {
 
 	public function testRenderPresenterForm() {
 		$hierarchy = $this->services->hierarchy->createHierarchy('Hi');
-
-		$this->assertStringEqualsFile(__DIR__ . '/expects/renderPresenterForm.expect', $hierarchy->setAction('form')->render());
+		$hierarchy->setAction('form')->render();
 
 		$dom = $hierarchy->renderDomQuery();
 		$this->assertTrue($dom->has('form#frm-form'));
