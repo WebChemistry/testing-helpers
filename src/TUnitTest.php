@@ -19,6 +19,8 @@ trait TUnitTest {
 	}
 
 	public function assetThrownException(callable $function, $class, $message = NULL, $code = NULL) {
+		$this->addToAssertionCount(1);
+
 		$e = NULL;
 		try {
 			call_user_func($function);
@@ -37,12 +39,16 @@ trait TUnitTest {
 	}
 
 	public function assertDomHas(DomQuery $domQuery, $selector) {
+		$this->addToAssertionCount(1);
+
 		if (!$domQuery->has($selector)) {
 			$this->fail("Element $selector not found in DOM");
 		}
 	}
 
 	public function assertDomNotHas(DomQuery $domQuery, $selector) {
+		$this->addToAssertionCount(1);
+
 		if ($domQuery->has($selector)) {
 			$this->fail("Element $selector found in DOM");
 		}
