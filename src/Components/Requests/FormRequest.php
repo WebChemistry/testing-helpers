@@ -3,7 +3,7 @@
 namespace WebChemistry\Testing\Components\Requests;
 
 use Nette\Application\UI\Form;
-use WebChemistry\Testing\Components\Presenters\FakePresenter;
+use WebChemistry\Testing\Components\Presenters\FormPresenter;
 use WebChemistry\Testing\Components\Presenter;
 use WebChemistry\Testing\Components\Responses\FormResponse;
 use WebChemistry\Testing\TestException;
@@ -23,9 +23,10 @@ class FormRequest extends BaseRequest {
 	 * @return FormResponse
 	 */
 	public function send() {
-		/** @var FakePresenter $presenter */
+		/** @var FormPresenter $presenter */
 		$presenter = $this->presenterService->createPresenter('Form');
-		$presenter->startupComponents[$this->name] = $this->form;
+		$presenter->name = $this->name;
+		$presenter->form = $this->form;
 
 		$this->signal = $this->name . '-submit';
 		$response = $this->createRequest($presenter, 'POST');

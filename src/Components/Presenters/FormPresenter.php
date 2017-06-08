@@ -2,25 +2,27 @@
 
 namespace WebChemistry\Testing\Components\Presenters;
 
+use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
 class FormPresenter extends Presenter {
 
-	/** @var array */
-	public $startupComponents = [];
+	/** @var Form */
+	public $form;
+
+	/** @var string */
+	public $name = 'foo';
 
 	protected function startup() {
 		parent::startup();
 
-		foreach ($this->startupComponents as $name => $component) {
-			$this->addComponent($component, $name);
-		}
+		$this->addComponent($this->form, $this->name);
 	}
 
-	protected function afterRender() {
-		parent::afterRender();
-
-		$this->terminate();
+	public function renderDefault() {
+		$template = $this->getTemplate();
+		$template->setFile(__DIR__ . '/templates/control.latte');
+		$template->name = $this->name;
 	}
 
 }
