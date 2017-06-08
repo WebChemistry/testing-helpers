@@ -91,4 +91,18 @@ class FormTest extends \Codeception\Test\Unit {
 		$this->assertFalse($response->isSubmitted());
 	}
 
+	public function testActionCallback() {
+		$request = $this->services->form->createRequest('control')->setActionCallback(function (Form $form) {
+			$form->addText('action');
+		})->setRenderCallback(function (Form $form) {
+			$form->addText('render');
+		});
+		$response = $request->render();
+
+		$form = $response->getForm();
+
+		$this->assertTrue(isset($form['action']));
+		$this->assertTrue(isset($form['render']));
+	}
+
 }
