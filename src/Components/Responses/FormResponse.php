@@ -56,7 +56,7 @@ class FormResponse extends BaseResponse {
 	 * @param bool $asArray
 	 * @return array|ArrayHash
 	 */
-	public function getValues($asArray = FALSE) {
+	public function getValues($asArray = TRUE) {
 		return $this->getForm()->getValues($asArray);
 	}
 
