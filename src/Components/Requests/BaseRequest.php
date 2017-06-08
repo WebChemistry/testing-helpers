@@ -187,13 +187,12 @@ abstract class BaseRequest {
 
 	/**
 	 * @param IPresenter $presenter
-	 * @param string $defaultMethod
 	 * @return PresenterResponse
 	 */
-	protected function createRequest(IPresenter $presenter, $defaultMethod = 'GET') {
+	protected function createRequest(IPresenter $presenter) {
 		$request = $this->presenterService->createRequest($presenter);
 
-		$request->setMethod($this->method ?: $defaultMethod);
+		$request->setMethod($this->method);
 		$request->setParams($this->params);
 		$request->setPost($this->post);
 		$request->setSignal($this->signal);
