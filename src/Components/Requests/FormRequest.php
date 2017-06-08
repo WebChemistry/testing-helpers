@@ -24,7 +24,7 @@ class FormRequest extends BaseRequest {
 	 */
 	public function send() {
 		/** @var FakePresenter $presenter */
-		$presenter = $this->presenterService->createPresenter('Fake');
+		$presenter = $this->presenterService->createPresenter('Form');
 		$presenter->startupComponents[$this->name] = $this->form;
 
 		$this->signal = $this->name . '-submit';

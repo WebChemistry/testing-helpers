@@ -4,7 +4,7 @@ namespace WebChemistry\Testing\Components\Presenters;
 
 use Nette\Application\UI\Presenter;
 
-class FakePresenter extends Presenter {
+class FormPresenter extends Presenter {
 
 	/** @var array */
 	public $startupComponents = [];

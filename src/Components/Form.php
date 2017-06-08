@@ -24,7 +24,7 @@ class Form {
 		$this->presenters = new Presenter();
 		$this->presenters->addMapping('*', 'WebChemistry\Testing\Components\Presenters\*Presenter');
 
-		$this->presenter = $this->presenters->createPresenter('Fake');
+		$this->presenter = $this->presenters->createPresenter('Form');
 	}
 
 	/**
