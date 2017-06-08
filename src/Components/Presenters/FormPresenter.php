@@ -13,13 +13,29 @@ class FormPresenter extends Presenter {
 	/** @var string */
 	public $name = 'foo';
 
+	/** @var callable */
+	public $actionCallback;
+
+	/** @var callable */
+	public $renderCallback;
+
 	protected function startup() {
 		parent::startup();
 
 		$this->addComponent($this->form, $this->name);
 	}
 
+	public function actionDefault() {
+		if ($cb = $this->actionCallback) {
+			$cb($this->form);
+		}
+	}
+
 	public function renderDefault() {
+		if ($cb = $this->renderCallback) {
+			$cb($this->form);
+		}
+
 		$template = $this->getTemplate();
 		$template->setFile(__DIR__ . '/templates/control.latte');
 		$template->name = $this->name;
