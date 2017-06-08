@@ -35,10 +35,10 @@ class Form {
 		if ($parent) {
 			$ctrl = $this->form->getParent();
 			if ($ctrl instanceof Component && !$ctrl instanceof IPresenter) {
-				return $ctrl->lookupPath(UI\Presenter::class, TRUE);
+				return $ctrl->lookupPath('Nette\Application\UI\Presenter', TRUE);
 			}
 		} else {
-			return $this->form->lookupPath(UI\Presenter::class, TRUE);
+			return $this->form->lookupPath('Nette\Application\UI\Presenter', TRUE);
 		}
 
 		return '';

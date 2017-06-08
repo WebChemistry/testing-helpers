@@ -16,7 +16,7 @@ class PresenterTest extends \Codeception\Test\Unit {
 	}
 
 	public function testCreatePresenter() {
-		$this->assertInstanceOf(MyPresenter::class, $this->services->presenter->createPresenter('My'));
+		$this->assertInstanceOf('MyPresenter', $this->services->presenter->createPresenter('My'));
 		$this->assertNotSame($this->services->presenter->createPresenter('My'), $this->services->presenter->createPresenter('My'));
 	}
 

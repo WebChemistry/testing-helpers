@@ -101,7 +101,7 @@ class Presenter {
 	 * @return TemplateFactory|null
 	 */
 	private function createTemplateFactory(IRequest $request) {
-		if (class_exists(Engine::class)) {
+		if (class_exists('Latte\Engine')) {
 			return new TemplateFactory(new LatteFactory(), $request);
 		}
 

@@ -41,7 +41,7 @@ class Control {
 			throw new TestException("Component '$name' is form, use getForm instead of getControl.");
 		}
 		if (!$ctrl instanceof Container) {
-			throw new TestException("Component '$name' must be instance of " . Container::class);
+			throw new TestException("Component '$name' must be instance of Nette\\ComponentModel\\Container");
 		}
 
 		return new Control($this->request, $ctrl);
@@ -66,7 +66,7 @@ class Control {
 	 * @return static
 	 */
 	public function addParams(array $params) {
-		Helpers::analyzeParams($params, $this->control->lookupPath(IPresenter::class));
+		Helpers::analyzeParams($params, $this->control->lookupPath('Nette\Application\IPresenter'));
 		$this->request->addParams($params);
 
 		return $this;
@@ -77,15 +77,15 @@ class Control {
 	 * @return ControlResponse
 	 */
 	public function sendSignal($signal) {
-		$this->request->setSignal($this->control->lookupPath(IPresenter::class) . '-' . $signal);
+		$this->request->setSignal($this->control->lookupPath('Nette\Application\IPresenter') . '-' . $signal);
 
-		return new ControlResponse($this->request->send(), $this->control->lookupPath(IPresenter::class));
+		return new ControlResponse($this->request->send(), $this->control->lookupPath('Nette\Application\IPresenter'));
 	}
 
 	public function render() {
 		ob_start();
 
-		$this->request->send()->getPresenter()->getComponent($this->control->lookupPath(IPresenter::class))->render();
+		$this->request->send()->getPresenter()->getComponent($this->control->lookupPath('Nette\Application\IPresenter'))->render();
 
 		return trim(ob_get_clean());
 	}

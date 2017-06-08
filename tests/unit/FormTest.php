@@ -31,7 +31,7 @@ class FormTest extends \Codeception\Test\Unit {
 		$sender->addPost('name', 'foo');
 		$response = $sender->send();
 
-		$this->assertInstanceOf(FormResponse::class, $response);
+		$this->assertInstanceOf('WebChemistry\Testing\Components\Responses\FormResponse', $response);
 		$this->assertTrue($response->getForm()->isSubmitted());
 		$this->assertSame('foo', $response->getForm()->getValues()['name']);
 	}
