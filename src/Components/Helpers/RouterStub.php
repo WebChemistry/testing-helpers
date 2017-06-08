@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace WebChemistry\Testing\Components\Helpers;
 
 use Nette;
