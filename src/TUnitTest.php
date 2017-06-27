@@ -18,7 +18,7 @@ trait TUnitTest {
 		}
 	}
 
-	public function assetThrownException(callable $function, $class, $message = NULL, $code = NULL) {
+	public function assertThrownException(callable $function, $class, $message = NULL, $code = NULL) {
 		$this->addToAssertionCount(1);
 
 		$e = NULL;
