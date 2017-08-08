@@ -19,10 +19,12 @@ class FormPresenter extends Presenter {
 	/** @var callable */
 	public $renderCallback;
 
-	protected function startup() {
-		parent::startup();
+	protected function createComponent($name) {
+		if ($this->name === $name) {
+			return $this->form;
+		}
 
-		$this->addComponent($this->form, $this->name);
+		return parent::createComponent($name);
 	}
 
 	public function actionDefault() {
