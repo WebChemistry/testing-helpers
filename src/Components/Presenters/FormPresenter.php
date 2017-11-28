@@ -19,6 +19,9 @@ class FormPresenter extends Presenter {
 	/** @var callable */
 	public $renderCallback;
 
+	/** @var string|null */
+	public $file;
+
 	protected function createComponent($name) {
 		if ($this->name === $name) {
 			return $this->form;
@@ -39,7 +42,7 @@ class FormPresenter extends Presenter {
 		}
 
 		$template = $this->getTemplate();
-		$template->setFile(__DIR__ . '/templates/control.latte');
+		$template->setFile($this->file ? : __DIR__ . '/templates/control.latte');
 		$template->name = $this->name;
 	}
 

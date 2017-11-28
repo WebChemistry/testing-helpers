@@ -56,13 +56,15 @@ class FormRequest extends BaseRequest {
 	}
 
 	/**
+	 * @param $templateFile string|null
 	 * @return FormResponse
 	 */
-	public function render() {
+	public function render($templateFile = null) {
 		/** @var FormPresenter $presenter */
 		$presenter = $this->presenterService->createPresenter('Form');
 		$presenter->name = $this->name;
 		$presenter->form = $this->form;
+		$presenter->file = $templateFile;
 		$presenter->actionCallback = $this->actionCallback;
 		$presenter->renderCallback = $this->renderCallback;
 
