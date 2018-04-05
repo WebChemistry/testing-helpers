@@ -29,6 +29,16 @@ class FormRequest extends BaseRequest {
 	 * @param callable $callback
 	 * @return static
 	 */
+	public function modifyForm(callable $callback) {
+		$callback($this->form);
+
+		return $this;
+	}
+
+	/**
+	 * @param callable $callback
+	 * @return static
+	 */
 	public function setActionCallback(callable $callback) {
 		$this->actionCallback = $callback;
 
