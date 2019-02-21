@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Helpers;
 
@@ -6,7 +6,7 @@ use Nette\Utils\Strings;
 
 class Helpers {
 
-	public static function analyzeParams(array &$params, $controlName) {
+	public static function analyzeParams(array &$params, string $controlName) {
 		if (!$controlName) {
 			return;
 		}
@@ -17,18 +17,6 @@ class Helpers {
 				$params[$controlName . $name] = $value;
 			}
 		}
-	}
-
-	public static function extractPathToArray($path, $val = NULL) {
-		$arr = [];
-		$pointer = &$arr;
-		foreach (explode('.', $path) as $item) {
-			$pointer[$item] = [];
-			$pointer = &$pointer[$item];
-		}
-		$pointer = $val;
-
-		return $arr;
 	}
 
 }

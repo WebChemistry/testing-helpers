@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing;
 
@@ -13,12 +13,12 @@ trait TUnitTest {
 		$this->services = new Services();
 
 		$parent = get_parent_class($this);
-		if ($parent !== FALSE && method_exists($parent, 'setUp')) {
+		if ($parent !== false && method_exists($parent, 'setUp')) {
 			parent::setUp();
 		}
 	}
 
-	public function assertThrownException(callable $function, $class, $message = NULL, $code = NULL) {
+	public function assertThrownException(callable $function, string $class, ?string $message = null, $code = null): void {
 		$this->addToAssertionCount(1);
 
 		$e = NULL;
@@ -38,19 +38,19 @@ trait TUnitTest {
 		}
 	}
 
-	public function assertDomHas(DomQuery $domQuery, $selector) {
+	public function assertDomHas(DomQuery $domQuery, string $selector): void {
 		$this->addToAssertionCount(1);
 
 		if (!$domQuery->has($selector)) {
-			$this->fail("Element $selector not found in DOM");
+			$this->fail(sprintf('Element %s not found in DOM', $selector));
 		}
 	}
 
-	public function assertDomNotHas(DomQuery $domQuery, $selector) {
+	public function assertDomNotHas(DomQuery $domQuery, string $selector): void {
 		$this->addToAssertionCount(1);
 
 		if ($domQuery->has($selector)) {
-			$this->fail("Element $selector found in DOM");
+			$this->fail(sprintf('Element %s found in DOM', $selector));
 		}
 	}
 

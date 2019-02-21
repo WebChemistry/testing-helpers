@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Presenters;
 
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
+use Nette\ComponentModel\IComponent;
 
 class FormPresenter extends Presenter {
 
@@ -22,7 +23,7 @@ class FormPresenter extends Presenter {
 	/** @var string|null */
 	public $file;
 
-	protected function createComponent($name) {
+	protected function createComponent(string $name): ?IComponent {
 		if ($this->name === $name) {
 			return $this->form;
 		}
@@ -30,13 +31,13 @@ class FormPresenter extends Presenter {
 		return parent::createComponent($name);
 	}
 
-	public function actionDefault() {
+	public function actionDefault(): void {
 		if ($cb = $this->actionCallback) {
 			$cb($this->form);
 		}
 	}
 
-	public function renderDefault() {
+	public function renderDefault(): void {
 		if ($cb = $this->renderCallback) {
 			$cb($this->form);
 		}

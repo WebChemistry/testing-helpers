@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Hierarchy;
 
@@ -12,8 +12,8 @@ class DomQuery extends \SimpleXMLElement {
 	 * @param string $html
 	 * @return DomQuery
 	 */
-	public static function fromHtml($html) {
-		if (strpos($html, '<') === FALSE) {
+	public static function fromHtml(string $html): self {
+		if (strpos($html, '<') === false) {
 			$html = '<body>' . $html;
 		}
 		// parse these elements as void
@@ -23,7 +23,7 @@ class DomQuery extends \SimpleXMLElement {
 			return $m[1] . str_replace('</', '<\/', $m[2]) . $m[3];
 		}, $html);
 		$dom = new \DOMDocument();
-		$old = libxml_use_internal_errors(TRUE);
+		$old = libxml_use_internal_errors(true);
 		libxml_clear_errors();
 		$dom->loadHTML($html);
 		$errors = libxml_get_errors();
@@ -43,7 +43,7 @@ class DomQuery extends \SimpleXMLElement {
 	 * @param string $xml
 	 * @return DomQuery
 	 */
-	public static function fromXml($xml) {
+	public static function fromXml(string $xml): self {
 		return simplexml_load_string($xml, __CLASS__);
 	}
 
@@ -52,7 +52,7 @@ class DomQuery extends \SimpleXMLElement {
 	 * @param string $selector
 	 * @return DomQuery[]
 	 */
-	public function find($selector) {
+	public function find(string $selector): array {
 		return $this->xpath(self::css2xpath($selector));
 	}
 
@@ -61,7 +61,7 @@ class DomQuery extends \SimpleXMLElement {
 	 * @param string $selector
 	 * @return bool
 	 */
-	public function has($selector) {
+	public function has(string $selector): bool {
 		return (bool) $this->find($selector);
 	}
 
@@ -70,7 +70,7 @@ class DomQuery extends \SimpleXMLElement {
 	 * @param string $css
 	 * @return string
 	 */
-	public static function css2xpath($css) {
+	public static function css2xpath(string $css): string {
 		$xpath = '//*';
 		preg_match_all('/
 			([#.:]?)([a-z][a-z0-9_-]*)|               # id, class, pseudoclass (1,2)
@@ -91,13 +91,13 @@ class DomQuery extends \SimpleXMLElement {
 		foreach ($matches as $m) {
 			if ($m[1] === '#') { // #ID
 				$xpath .= "[@id='$m[2]']";
-			} elseif ($m[1] === '.') { // .class
+			} else if ($m[1] === '.') { // .class
 				$xpath .= "[contains(concat(' ', normalize-space(@class), ' '), ' $m[2] ')]";
-			} elseif ($m[1] === ':') { // :pseudo-class
+			} else if ($m[1] === ':') { // :pseudo-class
 				throw new \InvalidArgumentException('Not implemented.');
-			} elseif ($m[2]) { // tag
+			} else if ($m[2]) { // tag
 				$xpath = rtrim($xpath, '*') . $m[2];
-			} elseif ($m[3]) { // [attribute]
+			} else if ($m[3]) { // [attribute]
 				$attr = '@' . strtolower($m[3]);
 				if (!isset($m[5])) {
 					$xpath .= "[$attr]";
@@ -106,24 +106,24 @@ class DomQuery extends \SimpleXMLElement {
 				$val = trim($m[5], '"\'');
 				if ($m[4] === '') {
 					$xpath .= "[$attr='$val']";
-				} elseif ($m[4] === '~') {
+				} else if ($m[4] === '~') {
 					$xpath .= "[contains(concat(' ', normalize-space($attr), ' '), ' $val ')]";
-				} elseif ($m[4] === '*') {
+				} else if ($m[4] === '*') {
 					$xpath .= "[contains($attr, '$val')]";
-				} elseif ($m[4] === '^') {
+				} else if ($m[4] === '^') {
 					$xpath .= "[starts-with($attr, '$val')]";
-				} elseif ($m[4] === '$') {
+				} else if ($m[4] === '$') {
 					$xpath .= "[substring($attr, string-length($attr)-0)='$val']";
 				}
-			} elseif ($m[6] === '>') {
+			} else if ($m[6] === '>') {
 				$xpath .= '/*';
-			} elseif ($m[6] === ',') {
+			} else if ($m[6] === ',') {
 				$xpath .= '|//*';
-			} elseif ($m[6] === '~') {
+			} else if ($m[6] === '~') {
 				$xpath .= '/following-sibling::*';
-			} elseif ($m[6] === '+') {
+			} else if ($m[6] === '+') {
 				throw new \InvalidArgumentException('Not implemented.');
-			} elseif ($m[7]) {
+			} else if ($m[7]) {
 				$xpath .= '//*';
 			}
 		}

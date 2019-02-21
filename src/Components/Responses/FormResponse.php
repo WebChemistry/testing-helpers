@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Responses;
 
@@ -25,30 +25,21 @@ class FormResponse extends BaseResponse {
 	}
 
 	/**
-	 * @return FALSE|\Nette\Forms\ISubmitterControl
+	 * @return false|\Nette\Forms\ISubmitterControl
 	 */
 	public function isSubmitted() {
 		return $this->getForm()->isSubmitted();
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isSuccess() {
+	public function isSuccess(): bool {
 		return $this->getForm()->isSuccess();
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function hasErrors() {
+	public function hasErrors(): bool {
 		return $this->getForm()->hasErrors();
 	}
 
-	/**
-	 * @return Form
-	 */
-	public function getForm() {
+	public function getForm(): Form {
 		return $this->presenter->getComponent($this->form);
 	}
 
@@ -56,7 +47,7 @@ class FormResponse extends BaseResponse {
 	 * @param bool $asArray
 	 * @return array|ArrayHash
 	 */
-	public function getValues($asArray = TRUE) {
+	public function getValues(bool $asArray = true) {
 		return $this->getForm()->getValues($asArray);
 	}
 
@@ -64,8 +55,8 @@ class FormResponse extends BaseResponse {
 	 * @param string $path
 	 * @return mixed
 	 */
-	public function getValue($path) {
-		$values = $this->getValues(TRUE);
+	public function getValue(string $path) {
+		$values = $this->getValues(true);
 		foreach (explode('.', $path) as $item) {
 			$values = $values[$item];
 		}

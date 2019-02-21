@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Requests;
 
@@ -25,17 +25,13 @@ class PresenterRequest extends BaseRequest {
 		throw new TestException('Cannot setControlParams in presenter.');
 	}
 
-	/**
-	 * @param string $presenterAction
-	 * @return static
-	 */
-	public function setPresenterAction($presenterAction) {
+	public function setPresenterAction(string $presenterAction): self {
 		$this->presenterAction = $presenterAction;
 
 		return $this;
 	}
 
-	public function send() {
+	public function send(): PresenterResponse {
 		if ($this->presenterAction) {
 			$this->params['action'] = $this->presenterAction;
 		}

@@ -1,26 +1,18 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Responses;
 
 use Nette\Application\IPresenter;
-use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Presenter;
 use WebChemistry\Testing\Components\Hierarchy\DomQuery;
-use WebChemistry\Testing\TMagicGet;
 
-/**
- * @property-read mixed|TextResponse $response
- * @property-read IPresenter|Presenter $presenter
- */
 abstract class BaseResponse {
 
-	use TMagicGet;
-
 	/** @var mixed */
-	protected $response;
+	public $response;
 
 	/** @var IPresenter|Presenter */
-	protected $presenter;
+	public $presenter;
 
 	public function __construct($response, IPresenter $presenter) {
 		$this->response = $response;
@@ -44,16 +36,13 @@ abstract class BaseResponse {
 	/**
 	 * @return string
 	 */
-	public function toString() {
+	public function toString(): string {
 		$source = $this->response->getSource();
 
 		return (string) $source;
 	}
 
-	/**
-	 * @return DomQuery
-	 */
-	public function toDomQuery() {
+	public function toDomQuery(): DomQuery {
 		return DomQuery::fromHtml($this->toString());
 	}
 

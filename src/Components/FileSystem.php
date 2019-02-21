@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components;
 
@@ -9,7 +9,7 @@ class FileSystem {
 	 *
 	 * @param string $dir
 	 */
-	public function removeDirRecursive($dir) {
+	public function removeDirRecursive(string $dir): void {
 		$this->rmDir($dir);
 	}
 
@@ -19,7 +19,7 @@ class FileSystem {
 	 * @param string $dir
 	 * @return int
 	 */
-	public function itemCount($dir) {
+	public function itemCount(string $dir): int {
 		$objects = scandir($dir);
 		$count = 0;
 		foreach ($objects as $object) {
@@ -59,7 +59,7 @@ class FileSystem {
 	 * @param string $dir
 	 * @return int
 	 */
-	public function dirCount($dir) {
+	public function dirCount(string $dir): int {
 		$objects = scandir($dir);
 		$count = 0;
 		foreach ($objects as $object) {
@@ -74,7 +74,7 @@ class FileSystem {
 		return $count;
 	}
 
-	protected function rmDir($dir) {
+	protected function rmDir(string $dir): void {
 		if (is_dir($dir)) {
 			$objects = scandir($dir);
 			foreach ($objects as $object) {

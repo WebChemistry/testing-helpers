@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Presenter;
@@ -16,11 +16,12 @@ class PresenterTest extends \Codeception\Test\Unit {
 	}
 
 	public function testCreatePresenter() {
-		$this->assertInstanceOf('MyPresenter', $this->services->presenter->createPresenter('My'));
-		$this->assertNotSame($this->services->presenter->createPresenter('My'), $this->services->presenter->createPresenter('My'));
+		$this->assertInstanceOf(MyPresenter::class, $this->services->presenter->createPresenter(MyPresenter::class));
+		$this->assertNotSame(
+			$this->services->presenter->createPresenter(MyPresenter::class),
+			$this->services->presenter->createPresenter(MyPresenter::class)
+		);
 	}
-
-	// Todo: tests
 
 }
 

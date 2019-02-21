@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Hierarchy;
 
-use Nette\Application\IPresenter;
 use WebChemistry\Testing\Components\Helpers\Helpers;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses\ControlResponse;
@@ -23,10 +22,7 @@ class Control {
 		$this->control = $control;
 	}
 
-	/**
-	 * @return Container
-	 */
-	public function getObject() {
+	public function getObject(): Container {
 		return $this->control;
 	}
 
@@ -35,7 +31,7 @@ class Control {
 	 * @return Control
 	 * @throws TestException
 	 */
-	public function getControl($name) {
+	public function getControl(string $name): Control {
 		$ctrl = $this->control->getComponent($name, TRUE);
 		if ($ctrl instanceof UI\Form) {
 			throw new TestException("Component '$name' is form, use getForm instead of getControl.");
@@ -52,7 +48,7 @@ class Control {
 	 * @return Form
 	 * @throws TestException
 	 */
-	public function getForm($name) {
+	public function getForm(string $name): Form {
 		$ctrl = $this->control->getComponent($name);
 		if (!$ctrl instanceof UI\Form) {
 			throw new TestException("Component '$name' is not form, use getControl instead of getForm.");
@@ -61,11 +57,7 @@ class Control {
 		return new Form($this->request, $ctrl);
 	}
 
-	/**
-	 * @param array $params
-	 * @return static
-	 */
-	public function addParams(array $params) {
+	public function addParams(array $params): self {
 		Helpers::analyzeParams($params, $this->control->lookupPath('Nette\Application\IPresenter'));
 		$this->request->addParams($params);
 
@@ -76,13 +68,13 @@ class Control {
 	 * @param string $signal
 	 * @return ControlResponse
 	 */
-	public function sendSignal($signal) {
+	public function sendSignal(string $signal): ControlResponse {
 		$this->request->setSignal($this->control->lookupPath('Nette\Application\IPresenter') . '-' . $signal);
 
 		return new ControlResponse($this->request->send(), $this->control->lookupPath('Nette\Application\IPresenter'));
 	}
 
-	public function render() {
+	public function render(): string {
 		ob_start();
 
 		$this->request->send()->getPresenter()->getComponent($this->control->lookupPath('Nette\Application\IPresenter'))->render();

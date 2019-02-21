@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Requests;
 
@@ -9,33 +9,31 @@ use WebChemistry\Testing\Components\Responses\ControlResponse;
 
 class ControlRequest extends BaseRequest {
 
-	const CONTROL_PRESENTER = 'Control';
-
 	/** @var IComponent */
 	private $control;
 
 	/** @var bool */
-	private $render = FALSE;
+	private $render = true;
 
-	public function __construct(Presenter $presenterService, IComponent $control, $name) {
+	public function __construct(Presenter $presenterService, IComponent $control, string $name) {
 		parent::__construct($presenterService, $name);
 
 		$this->control = $control;
 	}
 
-	public function setRender($render = TRUE) {
+	public function setRender(bool $render = true): self {
 		$this->render = $render;
 
 		return $this;
 	}
 
-	public function send() {
+	public function send(): ControlResponse {
 		return new ControlResponse($this->createRequest($this->createPresenter()), $this->name);
 	}
 
-	private function createPresenter() {
+	private function createPresenter(): ControlPresenter {
 		/** @var ControlPresenter $presenter */
-		$presenter = $this->presenterService->createPresenter(self::CONTROL_PRESENTER);
+		$presenter = $this->presenterService->createPresenter(ControlPresenter::class);
 
 		$presenter->setControl($this->name, $this->control);
 		if ($this->render) {

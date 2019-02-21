@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Requests;
 
@@ -25,31 +25,19 @@ class FormRequest extends BaseRequest {
 		$this->form = $form;
 	}
 
-	/**
-	 * @param callable $callback
-	 * @return static
-	 */
-	public function modifyForm(callable $callback) {
+	public function modifyForm(callable $callback): self {
 		$callback($this->form);
 
 		return $this;
 	}
 
-	/**
-	 * @param callable $callback
-	 * @return static
-	 */
-	public function setActionCallback(callable $callback) {
+	public function setActionCallback(callable $callback): self {
 		$this->actionCallback = $callback;
 
 		return $this;
 	}
 
-	/**
-	 * @param callable $callback
-	 * @return static
-	 */
-	public function setRenderCallback(callable $callback) {
+	public function setRenderCallback(callable $callback): self {
 		$this->renderCallback = $callback;
 
 		return $this;
@@ -58,20 +46,16 @@ class FormRequest extends BaseRequest {
 	/**
 	 * @return FormResponse
 	 */
-	public function send() {
+	public function send(): FormResponse {
 		$this->signal = $this->name . '-submit';
 		$this->setMethod('POST');
 
 		return $this->render();
 	}
 
-	/**
-	 * @param $templateFile string|null
-	 * @return FormResponse
-	 */
-	public function render($templateFile = null) {
+	public function render(?string $templateFile = null): FormResponse {
 		/** @var FormPresenter $presenter */
-		$presenter = $this->presenterService->createPresenter('Form');
+		$presenter = $this->presenterService->createPresenter(FormPresenter::class);
 		$presenter->name = $this->name;
 		$presenter->form = $this->form;
 		$presenter->file = $templateFile;

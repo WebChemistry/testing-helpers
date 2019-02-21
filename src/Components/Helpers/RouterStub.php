@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Helpers;
 
@@ -10,11 +10,11 @@ class RouterStub implements IRouter {
 
 	public $returnUrl = 'http://localhost/';
 
-	public function match(Nette\Http\IRequest $httpRequest) {
-		return $httpRequest;
+	public function match(Nette\Http\IRequest $httpRequest): array {
+		return [];
 	}
 
-	public function constructUrl(Request $appRequest, Nette\Http\Url $refUrl) {
+	public function constructUrl(array $params, Nette\Http\UrlScript $urlScript): string {
 		return $this->returnUrl;
 	}
 

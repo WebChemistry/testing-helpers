@@ -1,5 +1,9 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing;
 
-class TestException extends \Exception {}
+use RuntimeException;
+
+class TestException extends RuntimeException {
+
+}

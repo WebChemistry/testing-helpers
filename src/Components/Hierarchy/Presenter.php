@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Hierarchy;
 
@@ -22,23 +22,18 @@ class Presenter {
 	/** @var string */
 	private $name;
 
-	public function __construct($name, \WebChemistry\Testing\Components\Presenter $presenterService) {
+	public function __construct(string $name, \WebChemistry\Testing\Components\Presenter $presenterService) {
 		$this->request = new PresenterRequest($presenterService, $presenterService->createPresenter($name), $name);
 		$this->presenter = $presenterService->createPresenter($name);
 		$this->presenterService = $presenterService;
 		$this->name = $name;
 	}
 
-	public function cleanup() {
+	public function cleanup(): void {
 		$this->request = new PresenterRequest($this->presenterService, $this->presenterService->createPresenter($this->name), $this->name);
 	}
 
-	/**
-	 * @param string $name
-	 * @return Control
-	 * @throws TestException
-	 */
-	public function getControl($name) {
+	public function getControl(string $name): Control {
 		$ctrl = $this->presenter->getComponent($name);
 		if ($ctrl instanceof UI\Form) {
 			throw new TestException("Component '$name' is form, use getForm instead of getControl.");
@@ -47,12 +42,7 @@ class Presenter {
 		return new Control($this->request, $ctrl);
 	}
 
-	/**
-	 * @param string $name
-	 * @return Form
-	 * @throws TestException
-	 */
-	public function getForm($name) {
+	public function getForm(string $name): Form {
 		$ctrl = $this->presenter->getComponent($name);
 		if (!$ctrl instanceof UI\Form) {
 			throw new TestException("Component '$name' is not form, use getControl instead of getForm.");
@@ -61,11 +51,7 @@ class Presenter {
 		return new Form($this->request, $ctrl);
 	}
 
-	/**
-	 * @param string $action
-	 * @return static
-	 */
-	public function setAction($action) {
+	public function setAction(string $action): self {
 		$this->request->setPresenterAction($action);
 
 		return $this;
@@ -74,43 +60,44 @@ class Presenter {
 	/**
 	 * @return IPresenter|UI\Presenter
 	 */
-	public function getPresenter() {
+	public function getPresenter(): IPresenter {
 		return $this->presenter;
 	}
 
 	/**
 	 * @return PresenterResponse
 	 */
-	public function send() {
+	public function send(): PresenterResponse {
 		return $this->request->send();
 	}
 
 	/**
 	 * @return string
 	 */
-	public function render() {
+	public function render(): string {
 		return $this->request->send()->toString();
 	}
 
 	/**
 	 * @return DomQuery
+	 * @deprecated
 	 */
-	public function renderDomQuery() {
+	public function renderDomQuery(): DomQuery {
+		return $this->toDomQuery();
+	}
+
+	/**
+	 * @return DomQuery
+	 */
+	public function toDomQuery(): DomQuery {
 		return $this->request->send()->toDomQuery();
 	}
 
-	/**
-	 * @param array $params
-	 */
-	public function addParams(array $params) {
+	public function addParams(array $params): void {
 		$this->request->addParams($params);
 	}
 
-	/**
-	 * @param string $name
-	 * @return PresenterResponse
-	 */
-	public function sendSignal($name) {
+	public function sendSignal(string $name): PresenterResponse {
 		$this->request->setSignal($name);
 
 		return $this->request->send();

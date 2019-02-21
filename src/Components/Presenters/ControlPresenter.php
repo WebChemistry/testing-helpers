@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Presenters;
 
@@ -29,7 +29,7 @@ class ControlPresenter extends Presenter {
 	public function startup() {
 		parent::startup();
 
-		$this->control->setParent();
+		$this->control->setParent(null);
 		$this->addComponent($this->control, $this->name);
 	}
 

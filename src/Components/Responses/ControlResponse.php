@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Responses;
 
@@ -19,10 +19,7 @@ class ControlResponse extends BaseResponse {
 		$this->name = $name;
 	}
 
-	/**
-	 * @return IComponent
-	 */
-	public function getControl() {
+	public function getControl(): IComponent {
 		return $this->presenter->getComponent($this->name);
 	}
 

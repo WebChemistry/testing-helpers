@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components;
 
@@ -13,7 +13,7 @@ class Hierarchy {
 		$this->presenterService = new Presenter();
 	}
 
-	public function createHierarchy($name) {
+	public function createHierarchy(string $name): HierarchyPresenter {
 		return new HierarchyPresenter($name, $this->presenterService);
 	}
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace WebChemistry\Testing\Components\Requests;
 
@@ -53,10 +53,10 @@ abstract class BaseRequest {
 
 	/**
 	 * @param string $name
-	 * @param string $value
+	 * @param $value
 	 * @return static
 	 */
-	public function addPost($name, $value) {
+	public function addPost(string $name, $value) {
 		$this->post[$name] = $value;
 
 		return $this;

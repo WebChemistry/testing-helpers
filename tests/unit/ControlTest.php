@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 use WebChemistry\Testing\Components\Control;
 use WebChemistry\Testing\Components\Helpers\Helpers;
@@ -7,12 +7,6 @@ use WebChemistry\Testing\TUnitTest;
 class ControlTest extends \Codeception\Test\Unit {
 
 	use TUnitTest;
-
-	protected function _before() {
-		$this->services->control->addControl('custom', function () {
-			return new FooControl();
-		});
-	}
 
 	public function testAnalyzeParams() {
 		$array = [
@@ -34,7 +28,7 @@ class ControlTest extends \Codeception\Test\Unit {
 	}
 
 	public function testSendParams() {
-		$request = $this->services->control->createRequest('custom');
+		$request = $this->services->control->createRequest(new FooControl());
 
 		$request->setControlParams([
 			'foo' => 'bar',
@@ -44,7 +38,7 @@ class ControlTest extends \Codeception\Test\Unit {
 	}
 
 	public function testSendParamsTwice() {
-		$request = $this->services->control->createRequest('custom');
+		$request = $this->services->control->createRequest(new FooControl());
 		$request->setControlParams([
 			'foo' => 'bar',
 		]);
@@ -59,13 +53,13 @@ class ControlTest extends \Codeception\Test\Unit {
 	}
 
 	public function testRenderString() {
-		$request = $this->services->control->createRequest('custom');
+		$request = $this->services->control->createRequest(new FooControl());
 		$request->setControlParams([
 			'foo' => 'bar',
 		]);
 
 		$source = $request->setRender()->send()->toString();
-		$this->assertSame('test bar', trim((string) $source));
+		$this->assertSame('test bar', trim((string)$source));
 	}
 
 }
@@ -73,7 +67,7 @@ class ControlTest extends \Codeception\Test\Unit {
 class FooControl extends \Nette\Application\UI\Control {
 
 	/** @persistent @var string */
-	public $foo = NULL;
+	public $foo = null;
 
 	public function render() {
 		$this->template->setFile(__DIR__ . '/templates/basic.latte');
