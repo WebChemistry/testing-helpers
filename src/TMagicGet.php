@@ -10,7 +10,7 @@ trait TMagicGet {
 	 * @param string $name
 	 * @return mixed
 	 */
-	public function __get(string $name) {
+	public function __get($name) {
 		$getter = 'get' . ucfirst($name);
 		if (method_exists($this, $getter)) {
 			return $this->$getter();
