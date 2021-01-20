@@ -6,7 +6,7 @@
 		"codeception/codeception": "~2.2",
 		"nette/application": "^3.0",
 		"nette/forms": "^3.0",
-		"latte/latte": "^3.0"
+		"latte/latte": "^2.9"
 	},
 	"require": {
 		"php": ">= 7.1"
