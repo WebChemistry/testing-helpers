@@ -9,7 +9,7 @@ trait TUnitTest {
 	/** @var Services */
 	protected $services;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		$this->services = new Services();
 
 		$parent = get_parent_class($this);
