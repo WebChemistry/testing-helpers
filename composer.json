@@ -12,6 +12,10 @@
 	"require": {
 		"php": ">= 7.1"
 	},
+	"conflict": {
+		"nette/application": "<3.2.0",
+		"nette/forms": "<3.1.12"
+	},
 	"autoload": {
 		"psr-4": {
 			"WebChemistry\\Testing\\": "src/"
