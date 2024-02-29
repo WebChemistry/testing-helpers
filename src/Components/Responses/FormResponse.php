@@ -3,7 +3,7 @@
 namespace WebChemistry\Testing\Components\Responses;
 
 use Nette\Application\UI\Form;
-use Nette\Utils\ArrayHash;
+use Nette\Forms\Container;
 
 /**
  * @property-read Form $form
@@ -44,11 +44,11 @@ class FormResponse extends BaseResponse {
 	}
 
 	/**
-	 * @param bool $asArray
-	 * @return array|ArrayHash
+	 * Returns the values submitted by the form.
+	 * @param  Control[]|null  $controls
 	 */
-	public function getValues(bool $asArray = true) {
-		return $this->getForm()->getValues($asArray);
+	public function getValues(string|object|null $returnType = null, ?array $controls = null): object|array {
+		return $this->getForm()->getValues($returnType, $controls);
 	}
 
 	/**
@@ -56,7 +56,7 @@ class FormResponse extends BaseResponse {
 	 * @return mixed
 	 */
 	public function getValue(string $path) {
-		$values = $this->getValues(true);
+		$values = $this->getValues(Container::Array);
 		foreach (explode('.', $path) as $item) {
 			$values = $values[$item];
 		}
