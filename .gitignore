@@ -3,4 +3,4 @@ vendor/*
 composer.lock
 bin/*
 tests/_output
-tests/_support
+tests/Support/_generated

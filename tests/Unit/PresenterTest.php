@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+namespace Tests\Unit;
+
 use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Presenter;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;

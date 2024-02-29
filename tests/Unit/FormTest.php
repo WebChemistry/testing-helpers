@@ -1,6 +1,9 @@
 <?php declare(strict_types = 1);
 
+namespace Tests\Unit;
+
 use Nette\Application\UI\Form;
+use Tests\Support\Helper\FormTester;
 use WebChemistry\Testing\Components\Responses\FormResponse;
 use WebChemistry\Testing\TUnitTest;
 

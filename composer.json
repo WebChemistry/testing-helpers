@@ -3,11 +3,11 @@
 	"type": "library",
 	"desc": "Testing helpers for nette presenters and components",
 	"require-dev": {
-		"codeception/codeception": "~4.1",
+		"codeception/codeception": "^5.0",
 		"nette/application": "^3.2",
 		"nette/forms": "^3.1.12",
 		"latte/latte": "^2.9",
-		"codeception/module-asserts": "^1.3"
+		"codeception/module-asserts": "^3.0"
 	},
 	"require": {
 		"php": ">= 7.1"
@@ -19,6 +19,11 @@
 	"autoload": {
 		"psr-4": {
 			"WebChemistry\\Testing\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests/"
 		}
 	},
 	"scripts": {

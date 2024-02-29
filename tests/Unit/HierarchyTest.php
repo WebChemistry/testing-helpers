@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+namespace Tests\Unit;
+
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
@@ -38,7 +40,7 @@ class HierarchyTest extends \Codeception\Test\Unit {
 	public function testPresenterGetControl() {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 
-		$this->assertInstanceOf('MyControl', $hierarchy->getControl('control')->getObject());
+		$this->assertInstanceOf(MyControl::class, $hierarchy->getControl('control')->getObject());
 	}
 
 	public function testControlSignal() {
@@ -46,8 +48,8 @@ class HierarchyTest extends \Codeception\Test\Unit {
 
 		$response = $hierarchy->getControl('control')->addParams(['param2' => 'test'])->sendSignal('test');
 		$this->assertSame('Test handle-control-test', $response->toString());
-		$this->assertInstanceOf('Nette\Application\UI\Control', $response->getControl());
-		$this->assertInstanceOf('Nette\Application\UI\Presenter', $response->getPresenter());
+		$this->assertInstanceOf(Control::class, $response->getControl());
+		$this->assertInstanceOf(Presenter::class, $response->getPresenter());
 		$this->assertSame('handle-control-test', $response->getControl()->param);
 	}
 

@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+namespace Tests\Unit;
+
 use WebChemistry\Testing\Components\Control;
 use WebChemistry\Testing\Components\Helpers\Helpers;
 use WebChemistry\Testing\TUnitTest;
