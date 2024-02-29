@@ -4,7 +4,7 @@
 	"desc": "Testing helpers for nette presenters and components",
 	"require-dev": {
 		"codeception/codeception": "~4.1",
-		"nette/application": "^3.0",
+		"nette/application": "^3.2",
 		"nette/forms": "^3.0",
 		"latte/latte": "^2.9",
 		"codeception/module-asserts": "^1.3"

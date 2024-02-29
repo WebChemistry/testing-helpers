@@ -9,6 +9,8 @@ final class FormTester {
 
 		$form->addText('name');
 
+		$form->onSuccess[] = function () {};
+
 		return $form;
 	}
 

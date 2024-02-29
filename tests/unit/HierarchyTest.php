@@ -124,6 +124,8 @@ class HiPresenter extends Presenter {
 
 		$form->addText('name', 'Name');
 
+		$form->onSuccess[] = function () {};
+
 		return $form;
 	}
 
