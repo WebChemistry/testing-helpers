@@ -45,9 +45,9 @@ class FormResponse extends BaseResponse {
 
 	/**
 	 * Returns the values submitted by the form.
-	 * @param  Control[]|null  $controls
+	 * @param Control[]|null  $controls
 	 */
-	public function getValues(string|object|null $returnType = null, ?array $controls = null): object|array {
+	public function getValues(string|object $returnType = Container::Array, ?array $controls = null): object|array {
 		return $this->getForm()->getValues($returnType, $controls);
 	}
 
