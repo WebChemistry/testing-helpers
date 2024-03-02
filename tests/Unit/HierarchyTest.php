@@ -78,7 +78,7 @@ class HierarchyTest extends \Codeception\Test\Unit {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 		$hierarchy->setAction('form')->render();
 
-		$dom = $hierarchy->renderDomQuery();
+		$dom = $hierarchy->toDomQuery();
 		$this->assertTrue($dom->has('form#frm-form'));
 	}
 

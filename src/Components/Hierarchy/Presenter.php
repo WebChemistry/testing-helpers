@@ -80,14 +80,6 @@ class Presenter {
 
 	/**
 	 * @return DomQuery
-	 * @deprecated
-	 */
-	public function renderDomQuery(): DomQuery {
-		return $this->toDomQuery();
-	}
-
-	/**
-	 * @return DomQuery
 	 */
 	public function toDomQuery(): DomQuery {
 		return $this->request->send()->toDomQuery();
