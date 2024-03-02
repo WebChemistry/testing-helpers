@@ -10,7 +10,7 @@
 		"codeception/module-asserts": "^3.0"
 	},
 	"require": {
-		"php": ">= 7.1"
+		"php": ">= 8.0"
 	},
 	"conflict": {
 		"nette/application": "<3.2.0",
