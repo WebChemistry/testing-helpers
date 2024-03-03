@@ -4,6 +4,7 @@ namespace WebChemistry\Testing\Components\Responses;
 
 use Nette\Application\UI\Form;
 use Nette\Forms\Container;
+use Nette\Forms\Control;
 
 /**
  * @property-read Form $form
