@@ -6,10 +6,6 @@ use Nette\Application\UI\Form;
 use Nette\Forms\Container;
 use Nette\Forms\Control;
 
-/**
- * @property-read Form $form
- * @property-read array|ArrayHash $values
- */
 class FormResponse extends BaseResponse {
 
 	/** @var string */
