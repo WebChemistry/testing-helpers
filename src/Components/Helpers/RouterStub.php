@@ -3,10 +3,9 @@
 namespace WebChemistry\Testing\Components\Helpers;
 
 use Nette;
-use Nette\Application\IRouter;
-use Nette\Application\Request;
+use Nette\Routing\Router;
 
-class RouterStub implements IRouter {
+class RouterStub implements Router {
 
 	public $returnUrl = 'http://localhost/';
 

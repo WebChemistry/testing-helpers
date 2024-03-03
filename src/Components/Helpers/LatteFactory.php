@@ -3,7 +3,7 @@
 namespace WebChemistry\Testing\Components\Helpers;
 
 use Latte;
-use Nette\Bridges\ApplicationLatte\ILatteFactory;
+use Nette\Bridges\ApplicationLatte\LatteFactory as ILatteFactory;
 
 class LatteFactory implements ILatteFactory {
 
