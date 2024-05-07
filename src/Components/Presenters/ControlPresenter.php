@@ -9,14 +9,11 @@ use Nette\Bridges\ApplicationLatte\Template;
 use Nette\ComponentModel\IComponent;
 
 class ControlPresenter extends Presenter {
-	/** @var bool */
-	private $render = false;
+	private bool $render = false;
 
-	/** @var IComponent */
-	private $control;
+	private IComponent $control;
 
-	/** @var string */
-	private $name;
+	private string $name;
 
 	public function setControl($name, IComponent $control): void {
 		$this->control = $control;

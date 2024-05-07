@@ -11,8 +11,7 @@ use WebChemistry\Testing\Components\Hierarchy\DomQuery;
 abstract class BaseResponse {
 	public $response;
 
-	/** @var IPresenter|Presenter */
-	public $presenter;
+	public IPresenter|Presenter $presenter;
 
 	public function __construct($response, IPresenter $presenter) {
 		$this->response = $response;

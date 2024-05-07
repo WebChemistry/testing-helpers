@@ -12,11 +12,9 @@ use WebChemistry\Testing\Components\Responses\ControlResponse;
 use WebChemistry\Testing\TestException;
 
 class Control {
-	/** @var PresenterRequest */
-	protected $request;
+	protected PresenterRequest $request;
 
-	/** @var Container */
-	protected $control;
+	protected Container $control;
 
 	public function __construct(PresenterRequest $request, Container $control) {
 		$this->request = $request;

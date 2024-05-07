@@ -10,11 +10,9 @@ use WebChemistry\Testing\Components\Presenters\ControlPresenter;
 use WebChemistry\Testing\Components\Responses\ControlResponse;
 
 class ControlRequest extends BaseRequest {
-	/** @var IComponent */
-	private $control;
+	private IComponent $control;
 
-	/** @var bool */
-	private $render = true;
+	private bool $render = true;
 
 	public function __construct(PresenterFactory $presenterFactory, IComponent $control, string $name) {
 		parent::__construct($presenterFactory, $name);

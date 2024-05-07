@@ -8,8 +8,7 @@ use Nette\ComponentModel\IComponent;
 use WebChemistry\Testing\Components\Requests\ControlRequest;
 
 class Control {
-	/** @var PresenterFactory */
-	private $presenterFactory;
+	private PresenterFactory $presenterFactory;
 
 	public function __construct() {
 		$this->presenterFactory = new PresenterFactory();

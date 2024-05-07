@@ -10,8 +10,7 @@ use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TestException;
 
 class PresenterRequest extends BaseRequest {
-	/** @var IPresenter */
-	private $presenter;
+	private IPresenter $presenter;
 
 	private ?string $presenterAction = null;
 

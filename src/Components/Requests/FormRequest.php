@@ -11,8 +11,7 @@ use WebChemistry\Testing\Components\Responses\FormResponse;
 use WebChemistry\Testing\TestException;
 
 class FormRequest extends BaseRequest {
-	/** @var Form */
-	private $form;
+	private Form $form;
 
 	/** @var callable */
 	private $actionCallback;

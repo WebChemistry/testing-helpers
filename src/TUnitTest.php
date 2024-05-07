@@ -7,8 +7,7 @@ namespace WebChemistry\Testing;
 use WebChemistry\Testing\Components\Hierarchy\DomQuery;
 
 trait TUnitTest {
-	/** @var Services */
-	protected $services;
+	protected Services $services;
 
 	protected function setUp(): void {
 		$this->services = new Services();

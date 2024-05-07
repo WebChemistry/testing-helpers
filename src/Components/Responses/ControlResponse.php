@@ -7,8 +7,7 @@ namespace WebChemistry\Testing\Components\Responses;
 use Nette\ComponentModel\IComponent;
 
 class ControlResponse extends BaseResponse {
-	/** @var string */
-	private $name;
+	private string $name;
 
 	public function __construct(PresenterResponse $response, string $name) {
 		parent::__construct($response->getResponse(), $response->getPresenter());

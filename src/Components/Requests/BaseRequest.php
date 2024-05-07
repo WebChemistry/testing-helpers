@@ -12,20 +12,15 @@ use WebChemistry\Testing\Components\PresenterFactory;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;
 
 abstract class BaseRequest {
-	/** @var array */
-	protected $post = [];
+	protected array $post = [];
 
-	/** @var array */
-	protected $files = [];
+	protected array $files = [];
 
-	/** @var array */
-	protected $params = [];
+	protected array $params = [];
 
-	/** @var PresenterFactory */
-	protected $presenterFactory;
+	protected PresenterFactory $presenterFactory;
 
-	/** @var string */
-	protected $name;
+	protected string $name;
 
 	protected ?string $signal = null;
 

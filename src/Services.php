@@ -5,20 +5,15 @@ declare(strict_types=1);
 namespace WebChemistry\Testing;
 
 class Services {
-	/** @var Components\PresenterFactory */
-	public $presenterFactory;
+	public Components\PresenterFactory $presenterFactory;
 
-	/** @var Components\Form */
-	public $form;
+	public Components\Form $form;
 
-	/** @var Components\FileSystem */
-	public $fileSystem;
+	public Components\FileSystem $fileSystem;
 
-	/** @var Components\Control */
-	public $control;
+	public Components\Control $control;
 
-	/** @var Components\Hierarchy */
-	public $hierarchy;
+	public Components\Hierarchy $hierarchy;
 
 	public function __construct() {
 		$registry = new ServiceRegistry();

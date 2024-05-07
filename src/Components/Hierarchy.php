@@ -7,8 +7,7 @@ namespace WebChemistry\Testing\Components;
 use WebChemistry\Testing\Components\Hierarchy\Presenter as HierarchyPresenter;
 
 class Hierarchy {
-	/** @var PresenterFactory */
-	private $presenterFactory;
+	private PresenterFactory $presenterFactory;
 
 	public function __construct() {
 		$this->presenterFactory = new PresenterFactory();

@@ -18,7 +18,7 @@ use WebChemistry\Testing\Components\Requests\PresenterRequest;
 
 class PresenterFactory {
 	/** @var callable[] */
-	public $onCreate = [];
+	public array $onCreate = [];
 
 	/**
 	 * @return IPresenter|UI\Presenter

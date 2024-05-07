@@ -11,11 +11,9 @@ use WebChemistry\Testing\Components\Hierarchy;
 use WebChemistry\Testing\Components\PresenterFactory;
 
 final class ServiceRegistry {
-	/** @var array */
-	private $registry = [];
+	private array $registry = [];
 
-	/** @var array */
-	private $meta = [];
+	private array $meta = [];
 
 	public function __construct() {
 		$this->meta = [

@@ -11,11 +11,9 @@ use WebChemistry\Testing\Components\Presenters\FormPresenter;
 use WebChemistry\Testing\Components\Requests\FormRequest;
 
 class Form {
-	/** @var IPresenter|IContainer */
-	private $presenter;
+	private IPresenter|IContainer $presenter;
 
-	/** @var PresenterFactory */
-	private $presenterFactory;
+	private PresenterFactory $presenterFactory;
 
 	public function __construct() {
 		$this->presenterFactory = new PresenterFactory();

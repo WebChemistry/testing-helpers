@@ -12,17 +12,13 @@ use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TestException;
 
 class Presenter {
-	/** @var PresenterRequest */
-	protected $request;
+	protected PresenterRequest $request;
 
-	/** @var IPresenter|UI\Presenter */
-	protected $presenter;
+	protected IPresenter|UI\Presenter $presenter;
 
-	/** @var PresenterFactory */
-	private $presenterFactory;
+	private PresenterFactory $presenterFactory;
 
-	/** @var string */
-	private $name;
+	private string $name;
 
 	public function __construct(string $name, PresenterFactory $presenterFactory) {
 		$this->request = new PresenterRequest($presenterFactory, $presenterFactory->createPresenter($name), $name);

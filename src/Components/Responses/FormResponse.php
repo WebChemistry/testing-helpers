@@ -9,8 +9,7 @@ use Nette\Forms\Container;
 use Nette\Forms\Control;
 
 class FormResponse extends BaseResponse {
-	/** @var string */
-	private $form;
+	private string $form;
 
 	public function __construct(PresenterResponse $response, string $form) {
 		parent::__construct($response->getResponse(), $response->getPresenter());

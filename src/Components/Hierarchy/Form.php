@@ -12,11 +12,9 @@ use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses\FormResponse;
 
 class Form {
-	/** @var PresenterRequest */
-	private $request;
+	private PresenterRequest $request;
 
-	/** @var UI\Form */
-	private $form;
+	private UI\Form $form;
 
 	public function __construct(PresenterRequest $request, UI\Form $form) {
 		$this->request = $request;

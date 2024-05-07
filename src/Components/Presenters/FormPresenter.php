@@ -9,11 +9,9 @@ use Nette\Application\UI\Presenter;
 use Nette\ComponentModel\IComponent;
 
 class FormPresenter extends Presenter {
-	/** @var Form */
-	public $form;
+	public Form $form;
 
-	/** @var string */
-	public $name = 'foo';
+	public string $name = 'foo';
 
 	/** @var callable */
 	public $actionCallback;
@@ -21,8 +19,7 @@ class FormPresenter extends Presenter {
 	/** @var callable */
 	public $renderCallback;
 
-	/** @var string|null */
-	public $file;
+	public ?string $file;
 
 	protected function createComponent(string $name): ?IComponent {
 		if ($this->name === $name) {

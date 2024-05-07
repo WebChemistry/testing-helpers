@@ -12,6 +12,7 @@ return (new Config())
 		'@PHP80Migration:risky' => true,
 		'@Symfony' => true,
 		'phpdoc_to_param_type' => true,
+		'phpdoc_to_property_type' => true,
 		'phpdoc_to_return_type' => true,
 		// Override some Symfony rules.
 		'braces_position' => [
