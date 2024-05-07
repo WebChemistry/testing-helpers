@@ -12,7 +12,7 @@ final class FormTester {
 
 		$form->addText('name');
 
-		$form->onSuccess[] = function () {};
+		$form->onSuccess[] = function (): void {};
 
 		return $form;
 	}

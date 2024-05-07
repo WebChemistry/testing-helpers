@@ -8,6 +8,8 @@ use PhpCsFixer\Finder;
 return (new Config())
 	->setRiskyAllowed(true)
 	->setRules([
+		'@PHP81Migration' => true,
+		'@PHP80Migration:risky' => true,
 		'@Symfony' => true,
 		// Override some Symfony rules.
 		'braces_position' => [

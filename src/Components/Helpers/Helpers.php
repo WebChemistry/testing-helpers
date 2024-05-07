@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace WebChemistry\Testing\Components\Helpers;
 
 class Helpers {
-	public static function analyzeParams(array &$params, string $controlName) {
+	public static function analyzeParams(array &$params, string $controlName): void {
 		if (!$controlName) {
 			return;
 		}

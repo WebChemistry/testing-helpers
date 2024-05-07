@@ -158,7 +158,7 @@ abstract class BaseRequest {
 
 	// Method
 
-	public function setMethod(?string $method) {
+	public function setMethod(?string $method): void {
 		$this->method = $method;
 	}
 

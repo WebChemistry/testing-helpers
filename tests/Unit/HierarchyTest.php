@@ -12,39 +12,39 @@ use WebChemistry\Testing\TUnitTest;
 class HierarchyTest extends \Codeception\Test\Unit {
 	use TUnitTest;
 
-	protected function _before() {
+	protected function _before(): void {
 	}
 
-	protected function _after() {
+	protected function _after(): void {
 	}
 
-	public function testSendPresenter() {
+	public function testSendPresenter(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 
 		$this->assertSame('Test', $hierarchy->send()->toString());
 	}
 
-	public function testSendPresenterAction() {
+	public function testSendPresenterAction(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 		$hierarchy->setAction('foo');
 
 		$this->assertSame('Test Foo action', $hierarchy->send()->toString());
 	}
 
-	public function testSendPresenterHandle() {
+	public function testSendPresenterHandle(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 		$hierarchy->addParams(['param' => 'handle']);
 
 		$this->assertSame('Test handle', $hierarchy->sendSignal('test')->toString());
 	}
 
-	public function testPresenterGetControl() {
+	public function testPresenterGetControl(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 
 		$this->assertInstanceOf(MyControl::class, $hierarchy->getControl('control')->getObject());
 	}
 
-	public function testControlSignal() {
+	public function testControlSignal(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 
 		$response = $hierarchy->getControl('control')->addParams(['param2' => 'test'])->sendSignal('test');
@@ -54,28 +54,30 @@ class HierarchyTest extends \Codeception\Test\Unit {
 		$this->assertSame('handle-control-test', $response->getControl()->param);
 	}
 
-	public function testControlPersistentParam() {
+	public function testControlPersistentParam(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 		$hierarchy->getControl('control')->addParams(['param' => 'test']);
 
 		$this->assertSame('Test test', $hierarchy->send()->toString());
 	}
 
-	public function testControlRender() {
+	public function testControlRender(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 		$hierarchy->getControl('control')->addParams(['param' => 'foo']);
 
 		$this->assertSame('foo', $hierarchy->getControl('control')->render());
 	}
 
-	public function testSubControlRender() {
+	public function testSubControlRender(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 
-		$this->assertSame('foo',
-			$hierarchy->getControl('control')->getControl('control')->addParams(['param' => 'foo'])->render());
+		$this->assertSame(
+			'foo',
+			$hierarchy->getControl('control')->getControl('control')->addParams(['param' => 'foo'])->render()
+		);
 	}
 
-	public function testRenderPresenterForm() {
+	public function testRenderPresenterForm(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
 		$hierarchy->setAction('form')->render();
 
@@ -83,7 +85,7 @@ class HierarchyTest extends \Codeception\Test\Unit {
 		$this->assertTrue($dom->has('form#frm-form'));
 	}
 
-	public function testSendForm() {
+	public function testSendForm(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class)->setAction('form');
 
 		$response = $hierarchy->getForm('form')->setValues([
@@ -100,20 +102,20 @@ class HierarchyTest extends \Codeception\Test\Unit {
 }
 
 class HiPresenter extends Presenter {
-	public function actionDefault() {
+	public function actionDefault(): void {
 		$this->template->setFile(__DIR__ . '/templates/hierarchy.latte');
 	}
 
-	public function actionFoo() {
+	public function actionFoo(): void {
 		$this->template->setFile(__DIR__ . '/templates/hierarchy.latte');
 		$this->template->param = 'Foo action';
 	}
 
-	public function actionForm() {
+	public function actionForm(): void {
 		$this->template->setFile(__DIR__ . '/templates/hierarchy-form.latte');
 	}
 
-	public function handleTest($param) {
+	public function handleTest($param): void {
 		$this->template->param = $param;
 	}
 
@@ -126,7 +128,7 @@ class HiPresenter extends Presenter {
 
 		$form->addText('name', 'Name');
 
-		$form->onSuccess[] = function () {};
+		$form->onSuccess[] = function (): void {};
 
 		return $form;
 	}
@@ -136,7 +138,7 @@ class MyControl extends Control {
 	/** @persistent */
 	public $param;
 
-	public function render() {
+	public function render(): void {
 		$this->template->setFile(__DIR__ . '/templates/control.latte');
 
 		$this->template->param = $this->param;
@@ -148,7 +150,7 @@ class MyControl extends Control {
 		return new self();
 	}
 
-	public function handleTest($param2) {
+	public function handleTest($param2): void {
 		$this->param = 'handle-control-' . $param2;
 		$this->template->param = $this->param;
 	}

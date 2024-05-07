@@ -18,23 +18,23 @@ class ControlPresenter extends Presenter {
 	/** @var string */
 	private $name;
 
-	public function setControl($name, IComponent $control) {
+	public function setControl($name, IComponent $control): void {
 		$this->control = $control;
 		$this->name = $name;
 	}
 
-	public function setRender() {
+	public function setRender(): void {
 		$this->render = true;
 	}
 
-	public function startup() {
+	public function startup(): void {
 		parent::startup();
 
 		$this->control->setParent(null);
 		$this->addComponent($this->control, $this->name);
 	}
 
-	public function renderDefault() {
+	public function renderDefault(): void {
 		if ($this->render) {
 			/** @var Template|\stdClass $template */
 			$template = $this->getTemplate();

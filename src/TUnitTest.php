@@ -31,7 +31,7 @@ trait TUnitTest {
 		if ($e === null) {
 			$this->fail("$class was expected, but none was thrown");
 		} elseif (!$e instanceof $class) {
-			$this->fail("$class was expected but got " . get_class($e) . ($e->getMessage() ? " ({$e->getMessage()})" : ''));
+			$this->fail("$class was expected but got " . $e::class . ($e->getMessage() ? " ({$e->getMessage()})" : ''));
 		} elseif ($message && $message !== $e->getMessage()) {
 			$this->fail("$class with a message matching {$message} was expected but got {$e->getMessage()}");
 		} elseif ($code !== null && $e->getCode() !== $code) {

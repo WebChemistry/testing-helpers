@@ -9,7 +9,7 @@ use WebChemistry\Testing\TUnitTest;
 class FileSystemTest extends \Codeception\Test\Unit {
 	use TUnitTest;
 
-	public function testRemoveRecursive() {
+	public function testRemoveRecursive(): void {
 		@mkdir(__DIR__ . '/temp');
 		@mkdir(__DIR__ . '/temp/temp2');
 		@touch(__DIR__ . '/temp/file.txt');
@@ -19,7 +19,7 @@ class FileSystemTest extends \Codeception\Test\Unit {
 		$this->assertTrue(!file_exists(__DIR__ . '/temp'));
 	}
 
-	public function testFileCount() {
+	public function testFileCount(): void {
 		@mkdir(__DIR__ . '/temp');
 		@mkdir(__DIR__ . '/temp/temp2');
 		@touch(__DIR__ . '/temp/file.txt');
@@ -30,7 +30,7 @@ class FileSystemTest extends \Codeception\Test\Unit {
 		$this->services->fileSystem->removeDirRecursive(__DIR__ . '/temp');
 	}
 
-	public function testDirCount() {
+	public function testDirCount(): void {
 		@mkdir(__DIR__ . '/temp');
 		@mkdir(__DIR__ . '/temp/temp2');
 		@touch(__DIR__ . '/temp/file.txt');
@@ -41,7 +41,7 @@ class FileSystemTest extends \Codeception\Test\Unit {
 		$this->services->fileSystem->removeDirRecursive(__DIR__ . '/temp');
 	}
 
-	public function testItemCount() {
+	public function testItemCount(): void {
 		@mkdir(__DIR__ . '/temp');
 		@mkdir(__DIR__ . '/temp/temp2');
 		@touch(__DIR__ . '/temp/file.txt');

@@ -12,7 +12,7 @@ use WebChemistry\Testing\TUnitTest;
 class FormTest extends \Codeception\Test\Unit {
 	use TUnitTest;
 
-	public function testSend() {
+	public function testSend(): void {
 		$sender = $this->services->form->createRequest(FormTester::create());
 		$sender->addPost('name', 'foo');
 		$response = $sender->send();
@@ -22,7 +22,7 @@ class FormTest extends \Codeception\Test\Unit {
 		$this->assertSame('foo', $response->getForm()->getValues()['name']);
 	}
 
-	public function testGetValue() {
+	public function testGetValue(): void {
 		$sender = $this->services->form->createRequest(FormTester::create());
 		$sender->addPost('name', 'foo');
 		$response = $sender->send();
@@ -30,17 +30,17 @@ class FormTest extends \Codeception\Test\Unit {
 		$this->assertSame('foo', $response->getValue('name'));
 	}
 
-	public function testRequestRender() {
+	public function testRequestRender(): void {
 		$request = $this->services->form->createRequest(FormTester::create());
 		$response = $request->render();
 
 		$this->assertFalse($response->isSubmitted());
 	}
 
-	public function testActionCallback() {
-		$request = $this->services->form->createRequest(FormTester::create())->setActionCallback(function (Form $form) {
+	public function testActionCallback(): void {
+		$request = $this->services->form->createRequest(FormTester::create())->setActionCallback(function (Form $form): void {
 			$form->addText('action');
-		})->setRenderCallback(function (Form $form) {
+		})->setRenderCallback(function (Form $form): void {
 			$form->addText('render');
 		});
 		$response = $request->render();

@@ -31,8 +31,13 @@ class PresenterFactory {
 
 			$request = new Request(new UrlScript('http://localhost/'));
 			$presenter->injectPrimary(
-				$request, new Response(), null, new RouterStub(), null,
-				null, $this->createTemplateFactory($request)
+				$request,
+				new Response(),
+				null,
+				new RouterStub(),
+				null,
+				null,
+				$this->createTemplateFactory($request)
 			);
 		}
 

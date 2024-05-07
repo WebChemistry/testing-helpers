@@ -36,7 +36,7 @@ class Form {
 		return '';
 	}
 
-	public function addFileUpload(string $name, FileUpload $fileUpload) {
+	public function addFileUpload(string $name, FileUpload $fileUpload): void {
 		$this->request->addFileUpload($name, $fileUpload);
 	}
 

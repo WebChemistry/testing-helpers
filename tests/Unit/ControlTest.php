@@ -10,7 +10,7 @@ use WebChemistry\Testing\TUnitTest;
 class ControlTest extends \Codeception\Test\Unit {
 	use TUnitTest;
 
-	public function testAnalyzeParams() {
+	public function testAnalyzeParams(): void {
 		$array = [
 			'foo' => 'value',
 			'bar' => [
@@ -29,7 +29,7 @@ class ControlTest extends \Codeception\Test\Unit {
 		], $array);
 	}
 
-	public function testSendParams() {
+	public function testSendParams(): void {
 		$request = $this->services->control->createRequest(new FooControl());
 
 		$request->setControlParams([
@@ -39,7 +39,7 @@ class ControlTest extends \Codeception\Test\Unit {
 		$this->assertSame('bar', $request->send()->getControl()->foo);
 	}
 
-	public function testSendParamsTwice() {
+	public function testSendParamsTwice(): void {
 		$request = $this->services->control->createRequest(new FooControl());
 		$request->setControlParams([
 			'foo' => 'bar',
@@ -54,7 +54,7 @@ class ControlTest extends \Codeception\Test\Unit {
 		$this->assertSame('bar2', $request->send()->getControl()->foo);
 	}
 
-	public function testRenderString() {
+	public function testRenderString(): void {
 		$request = $this->services->control->createRequest(new FooControl());
 		$request->setControlParams([
 			'foo' => 'bar',
@@ -69,7 +69,7 @@ class FooControl extends \Nette\Application\UI\Control {
 	/** @persistent @var string */
 	public $foo = null;
 
-	public function render() {
+	public function render(): void {
 		$this->template->setFile(__DIR__ . '/templates/basic.latte');
 
 		$this->template->param = $this->foo;
