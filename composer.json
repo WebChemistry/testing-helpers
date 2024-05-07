@@ -5,6 +5,7 @@
 	"require-dev": {
 		"codeception/codeception": "^5.0.0",
 		"codeception/module-asserts": "^3.0",
+		"friendsofphp/php-cs-fixer": "^3.56",
 		"latte/latte": "^3.0",
 		"nette/application": "^3.2",
 		"nette/forms": "^3.1.12"
@@ -27,6 +28,8 @@
 		}
 	},
 	"scripts": {
+		"cs": "php-cs-fixer fix --verbose --dry-run --diff",
+		"fix": "php-cs-fixer fix --verbose --diff",
 		"tests": "vendor/bin/codecept run",
 		"stan": "vendor/bin/phpstan analyse src --level=3 --ansi --no-progress"
 	},

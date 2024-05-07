@@ -4,3 +4,4 @@ composer.lock
 bin/*
 tests/_output
 tests/Support/_generated
+.php-cs-fixer.cache
