@@ -27,11 +27,9 @@ abstract class BaseRequest {
 	/** @var string */
 	protected $name;
 
-	/** @var string */
-	protected $signal;
+	protected ?string $signal = null;
 
-	/** @var string */
-	protected $method;
+	protected ?string $method = null;
 
 	public function __construct(PresenterFactory $presenterFactory, $name) {
 		$this->presenterFactory = $presenterFactory;
@@ -150,11 +148,9 @@ abstract class BaseRequest {
 	}
 
 	/**
-	 * @param string $action
-	 *
 	 * @return static
 	 */
-	public function setSignal($action) {
+	public function setSignal(?string $action) {
 		$this->signal = $action;
 
 		return $this;
@@ -162,10 +158,7 @@ abstract class BaseRequest {
 
 	// Method
 
-	/**
-	 * @param string $method
-	 */
-	public function setMethod($method) {
+	public function setMethod(?string $method) {
 		$this->method = $method;
 	}
 
@@ -173,11 +166,11 @@ abstract class BaseRequest {
 	 * @return Request
 	 */
 	protected function createApplicationRequest() {
-		if ($this->signal) {
+		if ($this->signal !== null) {
 			$this->params['do'] = $this->signal;
 		}
 
-		return new Request($this->name, $this->method ?: 'GET', $this->params, $this->post, $this->files, []);
+		return new Request($this->name, $this->method ?? 'GET', $this->params, $this->post, $this->files, []);
 	}
 
 	/**

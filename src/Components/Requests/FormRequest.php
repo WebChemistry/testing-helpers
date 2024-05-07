@@ -63,7 +63,7 @@ class FormRequest extends BaseRequest {
 		return new FormResponse($this->createRequest($presenter), $this->name);
 	}
 
-	public function setSignal($action) {
+	public function setSignal(?string $action): static {
 		throw new TestException('Cannot set action in form.');
 	}
 }
