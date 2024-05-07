@@ -6,6 +6,7 @@ namespace WebChemistry\Testing\Components;
 
 use Latte\Engine;
 use Nette\Application\IPresenter;
+use Nette\Application\IPresenterFactory;
 use Nette\Application\UI;
 use Nette\Bridges\ApplicationLatte\TemplateFactory;
 use Nette\Http\IRequest;
@@ -16,9 +17,22 @@ use WebChemistry\Testing\Components\Helpers\Request;
 use WebChemistry\Testing\Components\Helpers\RouterStub;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
 
-class PresenterFactory {
+class PresenterFactory implements IPresenterFactory {
 	/** @var callable[] */
 	public array $onCreate = [];
+
+	/**
+	 * Generates and checks presenter class name.
+	 *
+	 * @throws InvalidPresenterException
+	 */
+	public function getPresenterClass(string &$name): string {
+		if (!class_exists($name)) {
+			throw new InvalidPresenterException("Cannot load presenter '$class', class '$class' was not found.");
+		}
+
+		return $name;
+	}
 
 	/**
 	 * @return IPresenter|UI\Presenter
@@ -33,7 +47,7 @@ class PresenterFactory {
 			$presenter->injectPrimary(
 				$request,
 				new Response(),
-				null,
+				$this,
 				new RouterStub(),
 				null,
 				null,
