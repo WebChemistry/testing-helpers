@@ -7,15 +7,15 @@ use WebChemistry\Testing\Components\Requests\ControlRequest;
 
 class Control {
 
-	/** @var Presenter */
-	private $presenter;
+	/** @var PresenterFactory */
+	private $presenterFactory;
 
 	public function __construct() {
-		$this->presenter = new Presenter();
+		$this->presenterFactory = new PresenterFactory();
 	}
 
 	public function createRequest(IComponent $control, string $name = 'control'): ControlRequest {
-		return new ControlRequest($this->presenter, $control, $name);
+		return new ControlRequest($this->presenterFactory, $control, $name);
 	}
 
 }

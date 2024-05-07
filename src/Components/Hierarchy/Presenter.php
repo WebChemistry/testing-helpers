@@ -4,6 +4,7 @@ namespace WebChemistry\Testing\Components\Hierarchy;
 
 use Nette\Application\UI;
 use Nette\Application\IPresenter;
+use WebChemistry\Testing\Components\PresenterFactory;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TestException;
@@ -16,21 +17,21 @@ class Presenter {
 	/** @var IPresenter|UI\Presenter */
 	protected $presenter;
 
-	/** @var \WebChemistry\Testing\Components\Presenter */
-	private $presenterService;
+	/** @var PresenterFactory */
+	private $presenterFactory;
 
 	/** @var string */
 	private $name;
 
-	public function __construct(string $name, \WebChemistry\Testing\Components\Presenter $presenterService) {
-		$this->request = new PresenterRequest($presenterService, $presenterService->createPresenter($name), $name);
-		$this->presenter = $presenterService->createPresenter($name);
-		$this->presenterService = $presenterService;
+	public function __construct(string $name, PresenterFactory $presenterFactory) {
+		$this->request = new PresenterRequest($presenterFactory, $presenterFactory->createPresenter($name), $name);
+		$this->presenter = $presenterFactory->createPresenter($name);
+		$this->presenterFactory = $presenterFactory;
 		$this->name = $name;
 	}
 
 	public function cleanup(): void {
-		$this->request = new PresenterRequest($this->presenterService, $this->presenterService->createPresenter($this->name), $this->name);
+		$this->request = new PresenterRequest($this->presenterFactory, $this->presenterFactory->createPresenter($this->name), $this->name);
 	}
 
 	public function getControl(string $name): Control {

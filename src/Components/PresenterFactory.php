@@ -14,7 +14,7 @@ use WebChemistry\Testing\Components\Helpers\Request;
 use WebChemistry\Testing\Components\Helpers\RouterStub;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
 
-class Presenter {
+class PresenterFactory {
 
 	/** @var callable[] */
 	public $onCreate = [];

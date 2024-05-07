@@ -6,15 +6,15 @@ use WebChemistry\Testing\Components\Hierarchy\Presenter as HierarchyPresenter;
 
 class Hierarchy {
 
-	/** @var Presenter */
-	private $presenterService;
+	/** @var PresenterFactory */
+	private $presenterFactory;
 
 	public function __construct() {
-		$this->presenterService = new Presenter();
+		$this->presenterFactory = new PresenterFactory();
 	}
 
 	public function createHierarchy(string $name): HierarchyPresenter {
-		return new HierarchyPresenter($name, $this->presenterService);
+		return new HierarchyPresenter($name, $this->presenterFactory);
 	}
 
 }

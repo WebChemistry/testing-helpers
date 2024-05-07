@@ -4,7 +4,7 @@ namespace WebChemistry\Testing\Components\Requests;
 
 use Nette\Application\UI\Form;
 use WebChemistry\Testing\Components\Presenters\FormPresenter;
-use WebChemistry\Testing\Components\Presenter;
+use WebChemistry\Testing\Components\PresenterFactory;
 use WebChemistry\Testing\Components\Responses\FormResponse;
 use WebChemistry\Testing\TestException;
 
@@ -19,8 +19,8 @@ class FormRequest extends BaseRequest {
 	/** @var callable */
 	private $renderCallback;
 
-	public function __construct(Presenter $presenterService, Form $form, $name) {
-		parent::__construct($presenterService, $name);
+	public function __construct(PresenterFactory $presenterFactory, Form $form, $name) {
+		parent::__construct($presenterFactory, $name);
 
 		$this->form = $form;
 	}
@@ -55,7 +55,7 @@ class FormRequest extends BaseRequest {
 
 	public function render(?string $templateFile = null): FormResponse {
 		/** @var FormPresenter $presenter */
-		$presenter = $this->presenterService->createPresenter(FormPresenter::class);
+		$presenter = $this->presenterFactory->createPresenter(FormPresenter::class);
 		$presenter->name = $this->name;
 		$presenter->form = $this->form;
 		$presenter->file = $templateFile;

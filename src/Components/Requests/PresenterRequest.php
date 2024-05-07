@@ -3,7 +3,7 @@
 namespace WebChemistry\Testing\Components\Requests;
 
 use Nette\Application\IPresenter;
-use WebChemistry\Testing\Components\Presenter;
+use WebChemistry\Testing\Components\PresenterFactory;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TestException;
 
@@ -15,8 +15,8 @@ class PresenterRequest extends BaseRequest {
 	/** @var string */
 	private $presenterAction;
 
-	public function __construct(Presenter $presenterService, IPresenter $presenter, $name) {
-		parent::__construct($presenterService, $name);
+	public function __construct(PresenterFactory $presenterFactory, IPresenter $presenter, $name) {
+		parent::__construct($presenterFactory, $name);
 
 		$this->presenter = $presenter;
 	}

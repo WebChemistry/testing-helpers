@@ -4,7 +4,7 @@ namespace WebChemistry\Testing\Components\Requests;
 
 use Nette\ComponentModel\IComponent;
 use WebChemistry\Testing\Components\Presenters\ControlPresenter;
-use WebChemistry\Testing\Components\Presenter;
+use WebChemistry\Testing\Components\PresenterFactory;
 use WebChemistry\Testing\Components\Responses\ControlResponse;
 
 class ControlRequest extends BaseRequest {
@@ -15,8 +15,8 @@ class ControlRequest extends BaseRequest {
 	/** @var bool */
 	private $render = true;
 
-	public function __construct(Presenter $presenterService, IComponent $control, string $name) {
-		parent::__construct($presenterService, $name);
+	public function __construct(PresenterFactory $presenterFactory, IComponent $control, string $name) {
+		parent::__construct($presenterFactory, $name);
 
 		$this->control = $control;
 	}
@@ -33,7 +33,7 @@ class ControlRequest extends BaseRequest {
 
 	private function createPresenter(): ControlPresenter {
 		/** @var ControlPresenter $presenter */
-		$presenter = $this->presenterService->createPresenter(ControlPresenter::class);
+		$presenter = $this->presenterFactory->createPresenter(ControlPresenter::class);
 
 		$presenter->setControl($this->name, $this->control);
 		if ($this->render) {

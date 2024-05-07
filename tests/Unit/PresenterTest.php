@@ -18,10 +18,10 @@ class PresenterTest extends \Codeception\Test\Unit {
 	}
 
 	public function testCreatePresenter() {
-		$this->assertInstanceOf(MyPresenter::class, $this->services->presenter->createPresenter(MyPresenter::class));
+		$this->assertInstanceOf(MyPresenter::class, $this->services->presenterFactory->createPresenter(MyPresenter::class));
 		$this->assertNotSame(
-			$this->services->presenter->createPresenter(MyPresenter::class),
-			$this->services->presenter->createPresenter(MyPresenter::class)
+			$this->services->presenterFactory->createPresenter(MyPresenter::class),
+			$this->services->presenterFactory->createPresenter(MyPresenter::class)
 		);
 	}
 

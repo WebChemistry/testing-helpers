@@ -6,7 +6,7 @@ use Nette\Application\IPresenter;
 use Nette\Application\Request;
 use Nette\Http\FileUpload;
 use WebChemistry\Testing\Components\Helpers\Helpers;
-use WebChemistry\Testing\Components\Presenter;
+use WebChemistry\Testing\Components\PresenterFactory;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;
 
 abstract class BaseRequest {
@@ -20,8 +20,8 @@ abstract class BaseRequest {
 	/** @var array */
 	protected $params = [];
 
-	/** @var Presenter */
-	protected $presenterService;
+	/** @var PresenterFactory */
+	protected $presenterFactory;
 
 	/** @var string */
 	protected $name;
@@ -32,8 +32,8 @@ abstract class BaseRequest {
 	/** @var string */
 	protected $method;
 
-	public function __construct(Presenter $presenterService, $name) {
-		$this->presenterService = $presenterService;
+	public function __construct(PresenterFactory $presenterFactory, $name) {
+		$this->presenterFactory = $presenterFactory;
 		$this->name = $name;
 	}
 
@@ -190,7 +190,7 @@ abstract class BaseRequest {
 	 * @return PresenterResponse
 	 */
 	protected function createRequest(IPresenter $presenter) {
-		$request = $this->presenterService->createRequest($presenter);
+		$request = $this->presenterFactory->createRequest($presenter);
 
 		$request->setMethod($this->method);
 		$request->setParams($this->params);

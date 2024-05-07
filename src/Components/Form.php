@@ -13,16 +13,16 @@ class Form {
 	/** @var IPresenter|IContainer */
 	private $presenter;
 
-	/** @var Presenter */
-	private $presenters;
+	/** @var PresenterFactory */
+	private $presenterFactory;
 
 	public function __construct() {
-		$this->presenters = new Presenter();
-		$this->presenter = $this->presenters->createPresenter(FormPresenter::class);
+		$this->presenterFactory = new PresenterFactory();
+		$this->presenter = $this->presenterFactory->createPresenter(FormPresenter::class);
 	}
 
 	public function createRequest(UI\Form $form, string $name = 'form'): FormRequest {
-		return new FormRequest($this->presenters, $form, $name);
+		return new FormRequest($this->presenterFactory, $form, $name);
 	}
 
 }

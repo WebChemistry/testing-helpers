@@ -6,8 +6,8 @@ use WebChemistry\Testing\Components;
 
 class Services {
 
-	/** @var Components\Presenter */
-	public $presenter;
+	/** @var Components\PresenterFactory */
+	public $presenterFactory;
 
 	/** @var Components\Form */
 	public $form;
@@ -24,7 +24,7 @@ class Services {
 	public function __construct() {
 		$registry = new ServiceRegistry();
 
-		$this->presenter = $registry->get('presenterService');
+		$this->presenterFactory = $registry->get('presenterService');
 		$this->form = $registry->get('formService');
 		$this->fileSystem = $registry->get('fileSystemService');
 		$this->control = $registry->get('controlService');
