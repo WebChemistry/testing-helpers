@@ -3,11 +3,11 @@
 	"type": "library",
 	"desc": "Testing helpers for nette presenters and components",
 	"require-dev": {
-		"codeception/codeception": "^5.0",
-		"nette/application": "^3.2",
-		"nette/forms": "^3.1.12",
+		"codeception/codeception": "^5.0.0",
+		"codeception/module-asserts": "^3.0",
 		"latte/latte": "^3.0",
-		"codeception/module-asserts": "^3.0"
+		"nette/application": "^3.2",
+		"nette/forms": "^3.1.12"
 	},
 	"require": {
 		"php": ">= 8.0"
@@ -30,5 +30,8 @@
 		"tests": "vendor/bin/codecept run",
 		"stan": "vendor/bin/phpstan analyse src --level=3 --ansi --no-progress"
 	},
-	"minimum-stability": "RC"
+	"minimum-stability": "RC",
+	"config": {
+		"sort-packages": true
+	}
 }
