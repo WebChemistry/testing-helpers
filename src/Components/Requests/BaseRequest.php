@@ -40,28 +40,19 @@ abstract class BaseRequest {
 
 	// Posts
 
-	/**
-	 * @return static
-	 */
-	public function setPost(array $post) {
+	public function setPost(array $post): static {
 		$this->post = $post;
 
 		return $this;
 	}
 
-	/**
-	 * @return static
-	 */
-	public function addPost(string $name, $value) {
+	public function addPost(string $name, $value): static {
 		$this->post[$name] = $value;
 
 		return $this;
 	}
 
-	/**
-	 * @return static
-	 */
-	public function addPosts(array $post) {
+	public function addPosts(array $post): static {
 		$this->post = array_merge_recursive($this->post, $post);
 
 		return $this;
@@ -69,13 +60,7 @@ abstract class BaseRequest {
 
 	// Files
 
-	/**
-	 * @param string $name
-	 * @param string $path
-	 *
-	 * @return static
-	 */
-	public function addFile($name, $path) {
+	public function addFile(string $name, string $path): static {
 		$this->files[$name] = new FileUpload([
 			'name' => basename($path),
 			'type' => null,
@@ -86,21 +71,13 @@ abstract class BaseRequest {
 		return $this;
 	}
 
-	/**
-	 * @param string $name
-	 *
-	 * @return static
-	 */
-	public function addFileUpload($name, FileUpload $fileUpload) {
+	public function addFileUpload(string $name, FileUpload $fileUpload): static {
 		$this->files[$name] = $fileUpload;
 
 		return $this;
 	}
 
-	/**
-	 * @return static
-	 */
-	public function setFiles(array $files) {
+	public function setFiles(array $files): static {
 		$this->files = $files;
 
 		return $this;
@@ -108,49 +85,32 @@ abstract class BaseRequest {
 
 	// Params
 
-	/**
-	 * @return static
-	 */
-	public function setControlParams(array $params) {
+	public function setControlParams(array $params): static {
 		Helpers::analyzeParams($params, $this->name);
 		$this->params = $params;
 
 		return $this;
 	}
 
-	/**
-	 * @return static
-	 */
-	public function setParams(array $params) {
+	public function setParams(array $params): static {
 		$this->params = $params;
 
 		return $this;
 	}
 
-	/**
-	 * @param string $name
-	 *
-	 * @return static
-	 */
-	public function addParam($name, $value) {
+	public function addParam(string $name, $value): static {
 		$this->params[$name] = $value;
 
 		return $this;
 	}
 
-	/**
-	 * @return static
-	 */
-	public function addParams(array $params) {
+	public function addParams(array $params): static {
 		$this->params = array_merge_recursive($this->params, $params);
 
 		return $this;
 	}
 
-	/**
-	 * @return static
-	 */
-	public function setSignal(?string $action) {
+	public function setSignal(?string $action): static {
 		$this->signal = $action;
 
 		return $this;
@@ -162,10 +122,7 @@ abstract class BaseRequest {
 		$this->method = $method;
 	}
 
-	/**
-	 * @return Request
-	 */
-	protected function createApplicationRequest() {
+	protected function createApplicationRequest(): Request {
 		if ($this->signal !== null) {
 			$this->params['do'] = $this->signal;
 		}
@@ -173,10 +130,7 @@ abstract class BaseRequest {
 		return new Request($this->name, $this->method ?? 'GET', $this->params, $this->post, $this->files, []);
 	}
 
-	/**
-	 * @return PresenterResponse
-	 */
-	protected function createRequest(IPresenter $presenter) {
+	protected function createRequest(IPresenter $presenter): PresenterResponse {
 		$request = $this->presenterFactory->createRequest($presenter);
 
 		$request->setMethod($this->method);

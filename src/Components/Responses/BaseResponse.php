@@ -23,10 +23,7 @@ abstract class BaseResponse {
 		return $this->response;
 	}
 
-	/**
-	 * @return IPresenter|Presenter
-	 */
-	public function getPresenter() {
+	public function getPresenter(): IPresenter|Presenter {
 		return $this->presenter;
 	}
 

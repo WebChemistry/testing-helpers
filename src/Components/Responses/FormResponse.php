@@ -12,10 +12,7 @@ class FormResponse extends BaseResponse {
 	/** @var string */
 	private $form;
 
-	/**
-	 * @param string $form
-	 */
-	public function __construct(PresenterResponse $response, $form) {
+	public function __construct(PresenterResponse $response, string $form) {
 		parent::__construct($response->getResponse(), $response->getPresenter());
 
 		$this->form = $form;
@@ -24,7 +21,7 @@ class FormResponse extends BaseResponse {
 	/**
 	 * @return false|\Nette\Forms\ISubmitterControl
 	 */
-	public function isSubmitted() {
+	public function isSubmitted(): bool|\Nette\Forms\ISubmitterControl {
 		return $this->getForm()->isSubmitted();
 	}
 

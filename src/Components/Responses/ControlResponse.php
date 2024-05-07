@@ -10,10 +10,7 @@ class ControlResponse extends BaseResponse {
 	/** @var string */
 	private $name;
 
-	/**
-	 * @param string $name
-	 */
-	public function __construct(PresenterResponse $response, $name) {
+	public function __construct(PresenterResponse $response, string $name) {
 		parent::__construct($response->getResponse(), $response->getPresenter());
 
 		$this->name = $name;

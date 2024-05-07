@@ -48,12 +48,7 @@ class PresenterFactory {
 		return $presenter;
 	}
 
-	/**
-	 * @param string|IPresenter $presenter
-	 *
-	 * @return PresenterRequest
-	 */
-	public function createRequest($presenter) {
+	public function createRequest(string|IPresenter $presenter): PresenterRequest {
 		if (!$presenter instanceof IPresenter) {
 			$class = $this->createPresenter($presenter);
 		} else {

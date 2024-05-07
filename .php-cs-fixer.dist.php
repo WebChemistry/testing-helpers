@@ -11,6 +11,8 @@ return (new Config())
 		'@PHP81Migration' => true,
 		'@PHP80Migration:risky' => true,
 		'@Symfony' => true,
+		'phpdoc_to_param_type' => true,
+		'phpdoc_to_return_type' => true,
 		// Override some Symfony rules.
 		'braces_position' => [
 			'functions_opening_brace' => 'same_line',

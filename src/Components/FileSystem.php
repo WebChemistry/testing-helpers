@@ -30,12 +30,8 @@ class FileSystem {
 
 	/**
 	 * Returns count of files.
-	 *
-	 * @param string $dir
-	 *
-	 * @return int
 	 */
-	public function fileCount($dir) {
+	public function fileCount(string $dir): int {
 		$objects = scandir($dir);
 		$count = 0;
 		foreach ($objects as $object) {
