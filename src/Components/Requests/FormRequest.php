@@ -1,15 +1,16 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Requests;
 
 use Nette\Application\UI\Form;
-use WebChemistry\Testing\Components\Presenters\FormPresenter;
 use WebChemistry\Testing\Components\PresenterFactory;
+use WebChemistry\Testing\Components\Presenters\FormPresenter;
 use WebChemistry\Testing\Components\Responses\FormResponse;
 use WebChemistry\Testing\TestException;
 
 class FormRequest extends BaseRequest {
-
 	/** @var Form */
 	private $form;
 
@@ -43,9 +44,6 @@ class FormRequest extends BaseRequest {
 		return $this;
 	}
 
-	/**
-	 * @return FormResponse
-	 */
 	public function send(): FormResponse {
 		$this->signal = $this->name . '-submit';
 		$this->setMethod('POST');
@@ -68,5 +66,4 @@ class FormRequest extends BaseRequest {
 	public function setSignal($action) {
 		throw new TestException('Cannot set action in form.');
 	}
-
 }

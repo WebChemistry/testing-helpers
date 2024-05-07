@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit;
 
@@ -8,7 +10,6 @@ use Nette\Application\UI\Presenter;
 use WebChemistry\Testing\TUnitTest;
 
 class HierarchyTest extends \Codeception\Test\Unit {
-
 	use TUnitTest;
 
 	protected function _before() {
@@ -99,7 +100,6 @@ class HierarchyTest extends \Codeception\Test\Unit {
 }
 
 class HiPresenter extends Presenter {
-
 	public function actionDefault() {
 		$this->template->setFile(__DIR__ . '/templates/hierarchy.latte');
 	}
@@ -130,11 +130,9 @@ class HiPresenter extends Presenter {
 
 		return $form;
 	}
-
 }
 
 class MyControl extends Control {
-
 	/** @persistent */
 	public $param;
 
@@ -154,5 +152,4 @@ class MyControl extends Control {
 		$this->param = 'handle-control-' . $param2;
 		$this->template->param = $this->param;
 	}
-
 }

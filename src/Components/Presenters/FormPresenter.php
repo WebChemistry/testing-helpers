@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Presenters;
 
@@ -7,7 +9,6 @@ use Nette\Application\UI\Presenter;
 use Nette\ComponentModel\IComponent;
 
 class FormPresenter extends Presenter {
-
 	/** @var Form */
 	public $form;
 
@@ -43,8 +44,7 @@ class FormPresenter extends Presenter {
 		}
 
 		$template = $this->getTemplate();
-		$template->setFile($this->file ? : __DIR__ . '/templates/control.latte');
+		$template->setFile($this->file ?: __DIR__ . '/templates/control.latte');
 		$template->name = $this->name;
 	}
-
 }

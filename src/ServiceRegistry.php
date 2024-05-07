@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing;
 
@@ -9,7 +11,6 @@ use WebChemistry\Testing\Components\Hierarchy;
 use WebChemistry\Testing\Components\PresenterFactory;
 
 final class ServiceRegistry {
-
 	/** @var array */
 	private $registry = [];
 
@@ -42,5 +43,4 @@ final class ServiceRegistry {
 
 		return $obj;
 	}
-
 }

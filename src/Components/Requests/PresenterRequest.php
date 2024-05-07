@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Requests;
 
@@ -8,7 +10,6 @@ use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TestException;
 
 class PresenterRequest extends BaseRequest {
-
 	/** @var IPresenter */
 	private $presenter;
 
@@ -39,5 +40,4 @@ class PresenterRequest extends BaseRequest {
 
 		return new PresenterResponse($this->presenter->run($request), $this->presenter);
 	}
-
 }

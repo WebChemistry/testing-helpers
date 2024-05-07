@@ -1,11 +1,12 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit;
 
 use WebChemistry\Testing\TUnitTest;
 
 class FileSystemTest extends \Codeception\Test\Unit {
-
 	use TUnitTest;
 
 	public function testRemoveRecursive() {
@@ -50,5 +51,4 @@ class FileSystemTest extends \Codeception\Test\Unit {
 
 		$this->services->fileSystem->removeDirRecursive(__DIR__ . '/temp');
 	}
-
 }

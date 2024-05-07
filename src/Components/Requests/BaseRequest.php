@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Requests;
 
@@ -10,7 +12,6 @@ use WebChemistry\Testing\Components\PresenterFactory;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;
 
 abstract class BaseRequest {
-
 	/** @var array */
 	protected $post = [];
 
@@ -42,7 +43,6 @@ abstract class BaseRequest {
 	// Posts
 
 	/**
-	 * @param array $post
 	 * @return static
 	 */
 	public function setPost(array $post) {
@@ -52,8 +52,6 @@ abstract class BaseRequest {
 	}
 
 	/**
-	 * @param string $name
-	 * @param $value
 	 * @return static
 	 */
 	public function addPost(string $name, $value) {
@@ -63,7 +61,6 @@ abstract class BaseRequest {
 	}
 
 	/**
-	 * @param array $post
 	 * @return static
 	 */
 	public function addPosts(array $post) {
@@ -77,12 +74,13 @@ abstract class BaseRequest {
 	/**
 	 * @param string $name
 	 * @param string $path
+	 *
 	 * @return static
 	 */
 	public function addFile($name, $path) {
 		$this->files[$name] = new FileUpload([
 			'name' => basename($path),
-			'type' => NULL,
+			'type' => null,
 			'size' => filesize($path),
 			'tmp_name' => $path,
 		]);
@@ -92,7 +90,7 @@ abstract class BaseRequest {
 
 	/**
 	 * @param string $name
-	 * @param FileUpload $fileUpload
+	 *
 	 * @return static
 	 */
 	public function addFileUpload($name, FileUpload $fileUpload) {
@@ -102,7 +100,6 @@ abstract class BaseRequest {
 	}
 
 	/**
-	 * @param array $files
 	 * @return static
 	 */
 	public function setFiles(array $files) {
@@ -114,7 +111,6 @@ abstract class BaseRequest {
 	// Params
 
 	/**
-	 * @param array $params
 	 * @return static
 	 */
 	public function setControlParams(array $params) {
@@ -125,7 +121,6 @@ abstract class BaseRequest {
 	}
 
 	/**
-	 * @param array $params
 	 * @return static
 	 */
 	public function setParams(array $params) {
@@ -136,7 +131,7 @@ abstract class BaseRequest {
 
 	/**
 	 * @param string $name
-	 * @param mixed $value
+	 *
 	 * @return static
 	 */
 	public function addParam($name, $value) {
@@ -146,7 +141,6 @@ abstract class BaseRequest {
 	}
 
 	/**
-	 * @param array $params
 	 * @return static
 	 */
 	public function addParams(array $params) {
@@ -157,6 +151,7 @@ abstract class BaseRequest {
 
 	/**
 	 * @param string $action
+	 *
 	 * @return static
 	 */
 	public function setSignal($action) {
@@ -186,7 +181,6 @@ abstract class BaseRequest {
 	}
 
 	/**
-	 * @param IPresenter $presenter
 	 * @return PresenterResponse
 	 */
 	protected function createRequest(IPresenter $presenter) {
@@ -200,5 +194,4 @@ abstract class BaseRequest {
 
 		return $request->send();
 	}
-
 }

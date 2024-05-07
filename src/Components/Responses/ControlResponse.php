@@ -1,16 +1,16 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Responses;
 
 use Nette\ComponentModel\IComponent;
 
 class ControlResponse extends BaseResponse {
-
 	/** @var string */
 	private $name;
 
 	/**
-	 * @param PresenterResponse $response
 	 * @param string $name
 	 */
 	public function __construct(PresenterResponse $response, $name) {
@@ -22,5 +22,4 @@ class ControlResponse extends BaseResponse {
 	public function getControl(): IComponent {
 		return $this->presenter->getComponent($this->name);
 	}
-
 }

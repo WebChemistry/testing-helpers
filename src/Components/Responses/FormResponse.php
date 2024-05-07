@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Responses;
 
@@ -7,12 +9,10 @@ use Nette\Forms\Container;
 use Nette\Forms\Control;
 
 class FormResponse extends BaseResponse {
-
 	/** @var string */
 	private $form;
 
 	/**
-	 * @param PresenterResponse $response
 	 * @param string $form
 	 */
 	public function __construct(PresenterResponse $response, $form) {
@@ -42,16 +42,13 @@ class FormResponse extends BaseResponse {
 
 	/**
 	 * Returns the values submitted by the form.
-	 * @param Control[]|null  $controls
+	 *
+	 * @param Control[]|null $controls
 	 */
 	public function getValues(string|object $returnType = Container::Array, ?array $controls = null): object|array {
 		return $this->getForm()->getValues($returnType, $controls);
 	}
 
-	/**
-	 * @param string $path
-	 * @return mixed
-	 */
 	public function getValue(string $path) {
 		$values = $this->getValues(Container::Array);
 		foreach (explode('.', $path) as $item) {
@@ -60,5 +57,4 @@ class FormResponse extends BaseResponse {
 
 		return $values;
 	}
-
 }

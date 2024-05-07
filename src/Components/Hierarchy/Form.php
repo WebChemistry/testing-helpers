@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Hierarchy;
 
@@ -10,17 +12,12 @@ use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses\FormResponse;
 
 class Form {
-
 	/** @var PresenterRequest */
 	private $request;
 
 	/** @var UI\Form */
 	private $form;
 
-	/**
-	 * @param PresenterRequest $request
-	 * @param UI\Form $form
-	 */
 	public function __construct(PresenterRequest $request, UI\Form $form) {
 		$this->request = $request;
 		$this->form = $form;
@@ -61,5 +58,4 @@ class Form {
 
 		return new FormResponse($this->request->send(), $this->getUniqueId());
 	}
-
 }

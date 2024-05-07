@@ -1,15 +1,16 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components;
 
 use Nette\Application\IPresenter;
+use Nette\Application\UI;
 use Nette\ComponentModel\IContainer;
 use WebChemistry\Testing\Components\Presenters\FormPresenter;
 use WebChemistry\Testing\Components\Requests\FormRequest;
-use Nette\Application\UI;
 
 class Form {
-
 	/** @var IPresenter|IContainer */
 	private $presenter;
 
@@ -24,5 +25,4 @@ class Form {
 	public function createRequest(UI\Form $form, string $name = 'form'): FormRequest {
 		return new FormRequest($this->presenterFactory, $form, $name);
 	}
-
 }

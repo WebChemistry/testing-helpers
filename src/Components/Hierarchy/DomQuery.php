@@ -2,20 +2,18 @@
 
 /**
  * This file is part of the Nette Tester.
- * Copyright (c) 2009 David Grudl (https://davidgrudl.com)
+ * Copyright (c) 2009 David Grudl (https://davidgrudl.com).
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Hierarchy;
 
 /**
  * DomQuery simplifies querying (X)HTML documents.
  */
-class DomQuery extends \SimpleXMLElement
-{
-	public static function fromHtml(string $html): self
-	{
+class DomQuery extends \SimpleXMLElement {
+	public static function fromHtml(string $html): self {
 		if (!str_contains($html, '<')) {
 			$html = '<body>' . $html;
 		}
@@ -26,11 +24,11 @@ class DomQuery extends \SimpleXMLElement
 		// fix parsing of </ inside scripts
 		$html = preg_replace_callback(
 			'#(<script(?=\s|>)(?:"[^"]*"|\'[^\']*\'|[^"\'>])*+>)(.*?)(</script>)#s',
-			fn(array $m): string => $m[1] . str_replace('</', '<\/', $m[2]) . $m[3],
+			fn (array $m): string => $m[1] . str_replace('</', '<\/', $m[2]) . $m[3],
 			$html,
 		);
 
-		$dom = new \DOMDocument;
+		$dom = new \DOMDocument();
 		$old = libxml_use_internal_errors(true);
 		libxml_clear_errors();
 		$dom->loadHTML($html);
@@ -46,33 +44,30 @@ class DomQuery extends \SimpleXMLElement
 		return simplexml_import_dom($dom, self::class);
 	}
 
-	public static function fromXml(string $xml): self
-	{
+	public static function fromXml(string $xml): self {
 		return simplexml_load_string($xml, self::class);
 	}
 
 	/**
 	 * Returns array of descendants filtered by a selector.
+	 *
 	 * @return DomQuery[]
 	 */
-	public function find(string $selector): array
-	{
+	public function find(string $selector): array {
 		return $this->xpath(self::css2xpath($selector));
 	}
 
 	/**
 	 * Check the current document against a selector.
 	 */
-	public function has(string $selector): bool
-	{
+	public function has(string $selector): bool {
 		return (bool) $this->find($selector);
 	}
 
 	/**
 	 * Transforms CSS expression to XPath.
 	 */
-	public static function css2xpath(string $css): string
-	{
+	public static function css2xpath(string $css): string {
 		$xpath = './/*';
 		preg_match_all(<<<'XX'
 			/

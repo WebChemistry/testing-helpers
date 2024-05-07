@@ -1,11 +1,10 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing;
 
-use WebChemistry\Testing\Components;
-
 class Services {
-
 	/** @var Components\PresenterFactory */
 	public $presenterFactory;
 
@@ -30,5 +29,4 @@ class Services {
 		$this->control = $registry->get('controlService');
 		$this->hierarchy = $registry->get('hierarchyService');
 	}
-
 }

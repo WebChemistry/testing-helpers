@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Presenters;
 
@@ -7,9 +9,8 @@ use Nette\Bridges\ApplicationLatte\Template;
 use Nette\ComponentModel\IComponent;
 
 class ControlPresenter extends Presenter {
-
 	/** @var bool */
-	private $render = FALSE;
+	private $render = false;
 
 	/** @var IComponent */
 	private $control;
@@ -23,7 +24,7 @@ class ControlPresenter extends Presenter {
 	}
 
 	public function setRender() {
-		$this->render = TRUE;
+		$this->render = true;
 	}
 
 	public function startup() {
@@ -39,10 +40,10 @@ class ControlPresenter extends Presenter {
 			$template = $this->getTemplate();
 			$template->setFile(__DIR__ . '/templates/control.latte');
 			$template->name = $this->name;
+
 			return;
 		}
 
 		$this->terminate();
 	}
-
 }

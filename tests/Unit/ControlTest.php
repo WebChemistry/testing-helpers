@@ -1,13 +1,13 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use WebChemistry\Testing\Components\Control;
 use WebChemistry\Testing\Components\Helpers\Helpers;
 use WebChemistry\Testing\TUnitTest;
 
 class ControlTest extends \Codeception\Test\Unit {
-
 	use TUnitTest;
 
 	public function testAnalyzeParams() {
@@ -61,13 +61,11 @@ class ControlTest extends \Codeception\Test\Unit {
 		]);
 
 		$source = $request->setRender()->send()->toString();
-		$this->assertSame('test bar', trim((string)$source));
+		$this->assertSame('test bar', trim((string) $source));
 	}
-
 }
 
 class FooControl extends \Nette\Application\UI\Control {
-
 	/** @persistent @var string */
 	public $foo = null;
 
@@ -78,5 +76,4 @@ class FooControl extends \Nette\Application\UI\Control {
 
 		$this->template->render();
 	}
-
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components;
 
@@ -15,12 +17,10 @@ use WebChemistry\Testing\Components\Helpers\RouterStub;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
 
 class PresenterFactory {
-
 	/** @var callable[] */
 	public $onCreate = [];
 
 	/**
-	 * @param string $class
 	 * @return IPresenter|UI\Presenter
 	 */
 	public function createPresenter(string $class): IPresenter {
@@ -45,6 +45,7 @@ class PresenterFactory {
 
 	/**
 	 * @param string|IPresenter $presenter
+	 *
 	 * @return PresenterRequest
 	 */
 	public function createRequest($presenter) {
@@ -65,5 +66,4 @@ class PresenterFactory {
 
 		return null;
 	}
-
 }

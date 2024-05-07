@@ -1,13 +1,12 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components;
 
 class FileSystem {
-
 	/**
-	 * Removes directory $dir (including) and sub-directories if contains
-	 *
-	 * @param string $dir
+	 * Removes directory $dir (including) and sub-directories if contains.
 	 */
 	public function removeDirRecursive(string $dir): void {
 		$this->rmDir($dir);
@@ -15,9 +14,6 @@ class FileSystem {
 
 	/**
 	 * Returns count of directories, files, ... without . and ..
-	 *
-	 * @param string $dir
-	 * @return int
 	 */
 	public function itemCount(string $dir): int {
 		$objects = scandir($dir);
@@ -26,16 +22,17 @@ class FileSystem {
 			if ($object === '.' || $object === '..') {
 				continue;
 			}
-			$count++;
+			++$count;
 		}
 
 		return $count;
 	}
 
 	/**
-	 * Returns count of files
+	 * Returns count of files.
 	 *
 	 * @param string $dir
+	 *
 	 * @return int
 	 */
 	public function fileCount($dir) {
@@ -46,7 +43,7 @@ class FileSystem {
 				continue;
 			}
 			if (is_file($dir . '/' . $object)) {
-				$count++;
+				++$count;
 			}
 		}
 
@@ -54,10 +51,7 @@ class FileSystem {
 	}
 
 	/**
-	 * Returns count of directories
-	 *
-	 * @param string $dir
-	 * @return int
+	 * Returns count of directories.
 	 */
 	public function dirCount(string $dir): int {
 		$objects = scandir($dir);
@@ -67,7 +61,7 @@ class FileSystem {
 				continue;
 			}
 			if (is_dir($dir . '/' . $object)) {
-				$count++;
+				++$count;
 			}
 		}
 
@@ -89,5 +83,4 @@ class FileSystem {
 			rmdir($dir);
 		}
 	}
-
 }

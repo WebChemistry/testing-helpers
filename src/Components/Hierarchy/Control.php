@@ -1,16 +1,17 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Hierarchy;
 
+use Nette\Application\UI;
+use Nette\ComponentModel\Container;
 use WebChemistry\Testing\Components\Helpers\Helpers;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses\ControlResponse;
 use WebChemistry\Testing\TestException;
-use Nette\ComponentModel\Container;
-use Nette\Application\UI;
 
 class Control {
-
 	/** @var PresenterRequest */
 	protected $request;
 
@@ -27,12 +28,10 @@ class Control {
 	}
 
 	/**
-	 * @param string $name
-	 * @return Control
 	 * @throws TestException
 	 */
 	public function getControl(string $name): Control {
-		$ctrl = $this->control->getComponent($name, TRUE);
+		$ctrl = $this->control->getComponent($name, true);
 		if ($ctrl instanceof UI\Form) {
 			throw new TestException("Component '$name' is form, use getForm instead of getControl.");
 		}
@@ -44,8 +43,6 @@ class Control {
 	}
 
 	/**
-	 * @param string $name
-	 * @return Form
 	 * @throws TestException
 	 */
 	public function getForm(string $name): Form {
@@ -64,10 +61,6 @@ class Control {
 		return $this;
 	}
 
-	/**
-	 * @param string $signal
-	 * @return ControlResponse
-	 */
 	public function sendSignal(string $signal): ControlResponse {
 		$this->request->setSignal($this->control->lookupPath('Nette\Application\IPresenter') . '-' . $signal);
 
@@ -81,5 +74,4 @@ class Control {
 
 		return trim(ob_get_clean());
 	}
-
 }

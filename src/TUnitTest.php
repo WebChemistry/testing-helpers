@@ -1,11 +1,12 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing;
 
 use WebChemistry\Testing\Components\Hierarchy\DomQuery;
 
 trait TUnitTest {
-
 	/** @var Services */
 	protected $services;
 
@@ -21,19 +22,19 @@ trait TUnitTest {
 	public function assertThrownException(callable $function, string $class, ?string $message = null, $code = null): void {
 		$this->addToAssertionCount(1);
 
-		$e = NULL;
+		$e = null;
 		try {
 			call_user_func($function);
 		} catch (\Exception $e) {
 		}
 
-		if ($e === NULL) {
+		if ($e === null) {
 			$this->fail("$class was expected, but none was thrown");
 		} elseif (!$e instanceof $class) {
 			$this->fail("$class was expected but got " . get_class($e) . ($e->getMessage() ? " ({$e->getMessage()})" : ''));
 		} elseif ($message && $message !== $e->getMessage()) {
 			$this->fail("$class with a message matching {$message} was expected but got {$e->getMessage()}");
-		} elseif ($code !== NULL && $e->getCode() !== $code) {
+		} elseif ($code !== null && $e->getCode() !== $code) {
 			$this->fail("$class with a code {$code} was expected but got {$e->getCode()}");
 		}
 	}
@@ -53,5 +54,4 @@ trait TUnitTest {
 			$this->fail(sprintf('Element %s found in DOM', $selector));
 		}
 	}
-
 }

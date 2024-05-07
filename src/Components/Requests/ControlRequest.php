@@ -1,14 +1,15 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Requests;
 
 use Nette\ComponentModel\IComponent;
-use WebChemistry\Testing\Components\Presenters\ControlPresenter;
 use WebChemistry\Testing\Components\PresenterFactory;
+use WebChemistry\Testing\Components\Presenters\ControlPresenter;
 use WebChemistry\Testing\Components\Responses\ControlResponse;
 
 class ControlRequest extends BaseRequest {
-
 	/** @var IComponent */
 	private $control;
 
@@ -42,5 +43,4 @@ class ControlRequest extends BaseRequest {
 
 		return $presenter;
 	}
-
 }

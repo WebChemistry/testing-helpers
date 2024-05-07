@@ -1,16 +1,17 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace WebChemistry\Testing\Components\Hierarchy;
 
-use Nette\Application\UI;
 use Nette\Application\IPresenter;
+use Nette\Application\UI;
 use WebChemistry\Testing\Components\PresenterFactory;
 use WebChemistry\Testing\Components\Requests\PresenterRequest;
 use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TestException;
 
 class Presenter {
-
 	/** @var PresenterRequest */
 	protected $request;
 
@@ -65,23 +66,14 @@ class Presenter {
 		return $this->presenter;
 	}
 
-	/**
-	 * @return PresenterResponse
-	 */
 	public function send(): PresenterResponse {
 		return $this->request->send();
 	}
 
-	/**
-	 * @return string
-	 */
 	public function render(): string {
 		return $this->request->send()->toString();
 	}
 
-	/**
-	 * @return DomQuery
-	 */
 	public function toDomQuery(): DomQuery {
 		return $this->request->send()->toDomQuery();
 	}
@@ -95,5 +87,4 @@ class Presenter {
 
 		return $this->request->send();
 	}
-
 }

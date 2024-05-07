@@ -1,14 +1,14 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit;
 
 use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Presenter;
-use WebChemistry\Testing\Components\Responses\PresenterResponse;
 use WebChemistry\Testing\TUnitTest;
 
 class PresenterTest extends \Codeception\Test\Unit {
-
 	use TUnitTest;
 
 	protected function _before() {
@@ -24,15 +24,10 @@ class PresenterTest extends \Codeception\Test\Unit {
 			$this->services->presenterFactory->createPresenter(MyPresenter::class)
 		);
 	}
-
 }
 
 class MyPresenter extends Presenter {
-
 	public function actionDefault() {
 		$this->sendResponse(new TextResponse('test'));
 	}
-
-
-
 }
