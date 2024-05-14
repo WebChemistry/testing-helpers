@@ -77,16 +77,16 @@ class HierarchyTest extends \Codeception\Test\Unit {
 		);
 	}
 
-	public function testRenderPresenterForm(): void {
+	public function testRenderPresenterFormControl(): void {
 		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class);
-		$hierarchy->setAction('form')->render();
+		$hierarchy->setAction('formControl')->render();
 
 		$dom = $hierarchy->toDomQuery();
 		$this->assertTrue($dom->has('form#frm-form'));
 	}
 
 	public function testSendForm(): void {
-		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class)->setAction('form');
+		$hierarchy = $this->services->hierarchy->createHierarchy(HiPresenter::class)->setAction('formControl');
 
 		$response = $hierarchy->getForm('form')->setValues([
 			'name' => 'Foo',
@@ -111,8 +111,8 @@ class HiPresenter extends Presenter {
 		$this->template->param = 'Foo action';
 	}
 
-	public function actionForm(): void {
-		$this->template->setFile(__DIR__ . '/templates/hierarchy-form.latte');
+	public function actionFormControl(): void {
+		$this->template->setFile(__DIR__ . '/templates/hierarchy-form-control.latte');
 	}
 
 	public function handleTest($param): void {
